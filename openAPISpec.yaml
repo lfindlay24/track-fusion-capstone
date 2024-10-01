@@ -1,0 +1,188 @@
+swagger: "2.0"
+x-google-endpoints:
+  - name: track-fusion-api.endpoints.utahjazz24.cloud.goog
+    allowCors: true
+info:
+  version: "1.0.0"
+  title: "Track Fusion API"
+  description: "The OpenAPI specification for the Track Fusion API."
+
+x-google-backend:
+  address: "https://trackfusion.com"
+  termsOfService: "http://example.com/terms/"
+  contact:
+    name: "API Support"
+    url: "http://www.example.com/support"
+    email: "support@example.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+
+basePath: "/trackfusion"
+schemes:
+  - "https"
+
+consumes:
+  - "application/json"  # Expected content type for requests.
+produces:
+  - "application/json"  # Content type for responses.
+
+paths:
+  /users:
+    get:
+      summary: "Retrieve a list of users"
+      description: "Returns a list of users."
+      operationId: "getUsers"
+      parameters: []
+      responses:
+        200:
+          description: "An array of users"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        500:
+          description: "Internal server error"
+
+    post:
+      summary: "Create a new user"
+      description: "Creates a new user with the provided information."
+      operationId: "createUser"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        201:
+          description: "User created successfully"
+        400:
+          description: "Invalid input"
+
+  /users/{userId}:
+    get:
+      summary: "Retrieve a specific user by ID"
+      description: "Returns a single user."
+      operationId: "getUserById"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to retrieve"
+      responses:
+        200:
+          description: "User details"
+          schema:
+            $ref: "#/definitions/User"
+        404:
+          description: "User not found"
+
+    put:
+      summary: "Update an existing user"
+      description: "Updates the details of an existing user."
+      operationId: "updateUser"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to update"
+        - in: "body"
+          name: "body"
+          description: "Updated user object"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "User updated successfully"
+        404:
+          description: "User not found"
+
+    delete:
+      summary: "Delete a user"
+      description: "Deletes the specified user."
+      operationId: "deleteUser"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to delete"
+      responses:
+        204:
+          description: "User deleted successfully"
+        404:
+          description: "User not found"
+
+definitions:
+  User:
+    type: "object"
+    required:
+      - "id"
+      - "name"
+      - "email"
+      - "password"
+      - "isPremiumAccount"
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier for the user"
+      name:
+        type: "string"
+        description: "Name of the user"
+      email:
+        type: "string"
+        description: "Email of the user"
+      password:
+        type: "string"
+        description: "Password of the user"
+      isPremiumAccount:
+        type: "boolean"
+        description: "Flag indicating if the user has a premium account"
+  GarageGroup:
+    required:
+      - "id"
+      - "groupName"
+      - "members"
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier for the garage group"
+      groupName:
+        type: "string"
+        description: "Name of the garage group"
+      members:
+        type: "array"
+        items:
+          type: "string"
+        description: "List of user IDs that are members of the group"
+  RaceModeData:
+    required:
+      - "userId"
+      - "raceTime"
+      - "raceDistance"
+      - "raceLocation"
+      - "dataFile"
+    properties:
+      userId:
+        type: "string"
+        format: "date-time"
+      raceTime:
+        type: "string"
+        format: "date-time"
+        description: "Time when the race took place"
+      raceDistance:
+        type: "number"
+        format: "float"
+        description: "Distance covered in the race"
+      raceLocation:
+        type: "string"
+        description: "Location where the race took place"
+      dataFile:
+        type: "string"
+        format: "binary"
+        description: "File containing race data"
