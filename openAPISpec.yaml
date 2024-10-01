@@ -1,26 +1,18 @@
 swagger: "2.0"
-x-google-endpoints:
-  - name: track-fusion-api.endpoints.utahjazz24.cloud.goog
-    allowCors: true
 info:
   version: "1.0.0"
   title: "Track Fusion API"
   description: "The OpenAPI specification for the Track Fusion API."
+host: track-fusion-2o0rhes6zm6uc.apigateway.utahjazz24.cloud.goog
 
-x-google-backend:
-  address: "https://trackfusion.com"
-  termsOfService: "http://example.com/terms/"
-  contact:
-    name: "API Support"
-    url: "http://www.example.com/support"
-    email: "support@example.com"
-  license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+# x-google-backend:
+#   address: https://us-central1-utahjazz24.cloudfunctions.net/function-1
 
 basePath: "/trackfusion"
 schemes:
   - "https"
+security:
+  - api_key: []
 
 consumes:
   - "application/json"  # Expected content type for requests.
@@ -30,6 +22,8 @@ produces:
 paths:
   /users:
     get:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/function-1
       summary: "Retrieve a list of users"
       description: "Returns a list of users."
       operationId: "getUsers"
@@ -45,6 +39,8 @@ paths:
           description: "Internal server error"
 
     post:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/createUserFunction
       summary: "Create a new user"
       description: "Creates a new user with the provided information."
       operationId: "createUser"
