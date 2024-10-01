@@ -11,5 +11,3 @@ gcloud functions add-invoker-policy-binding createUserFunction --region="us-cent
 curl -i "https://track-fusion-api-gateway-t8b6s4l.uc.gateway.dev/trackfusion/users"
 
 curl -i "https://track-fusion-api-gateway-t8b6s4l.uc.gateway.dev/trackfusion/users" -d "{\"name\": \"Luke\"}"
-
-AIzaSyB29XwQ5NWZBhNJQpMZ6Qgxqq2E6utaXvg
