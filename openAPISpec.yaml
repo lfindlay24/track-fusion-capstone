@@ -23,7 +23,7 @@ paths:
   /users:
     get:
       x-google-backend:
-        address: https://us-central1-utahjazz24.cloudfunctions.net/function-1
+        address: https://us-central1-utahjazz24.cloudfunctions.net/getAllUsers_Function
       summary: "Retrieve a list of users"
       description: "Returns a list of users."
       operationId: "getUsers"
@@ -59,6 +59,8 @@ paths:
 
   /users/{userId}:
     get:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/GetUserByIdFunction
       summary: "Retrieve a specific user by ID"
       description: "Returns a single user."
       operationId: "getUserById"
@@ -77,6 +79,8 @@ paths:
           description: "User not found"
 
     put:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/UpdateUserFunction
       summary: "Update an existing user"
       description: "Updates the details of an existing user."
       operationId: "updateUser"
@@ -99,6 +103,8 @@ paths:
           description: "User not found"
 
     delete:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/DeleteUserFunction
       summary: "Delete a user"
       description: "Deletes the specified user."
       operationId: "deleteUser"
