@@ -120,6 +120,153 @@ paths:
         404:
           description: "User not found"
 
+  /garageGroups:
+    get:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/getAllGarageGroupsFunction
+      summary: "Retrieve a list of garage groups"
+      description: "Returns a list of garage groups."
+      operationId: "getGarageGroups"
+      parameters: []
+      responses:
+        200:
+          description: "An array of garage groups"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/GarageGroup"
+        500:
+          description: "Internal server error"
+
+    post:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/createGarageGroupFunction
+      summary: "Create a new garage group"
+      description: "Creates a new garage group with the provided information."
+      operationId: "createGarageGroup"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Garage group object that needs to be added"
+          required: true
+          schema:
+            $ref: "#/definitions/GarageGroup"
+      responses:
+        201:
+          description: "Garage group created successfully"
+        400:
+          description: "Invalid input"
+    
+  /garageGroups/{groupId}:
+    get:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/getGarageGroupByIdFunction
+      summary: "Retrieve a specific garage group by ID"
+      description: "Returns a single garage group."
+      operationId: "getGarageGroupById"
+      parameters:
+        - name: "groupId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the garage group to retrieve"
+      responses:
+        200:
+          description: "Garage group details"
+          schema:
+            $ref: "#/definitions/GarageGroup"
+        404:
+          description: "Garage group not found"
+
+    put:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/updateGarageGroupFunction
+      summary: "Update an existing garage group"
+      description: "Updates the details of an existing garage group."
+      operationId: "updateGarageGroup"
+      parameters:
+        - name: "groupId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the garage group to update"
+        - in: "body"
+          name: "body"
+          description: "Updated garage group object"
+          required: true
+          schema:
+            $ref: "#/definitions/GarageGroup"
+      responses:
+        200:
+          description: "Garage group updated successfully"
+        404:
+          description: "Garage group not found"
+
+    delete:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/deleteGarageGroupFunction
+      summary: "Delete a garage group"
+      description: "Deletes the specified garage group."
+      operationId: "deleteGarageGroup"
+      parameters:
+        - name: "groupId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the garage group to delete"
+      responses:
+        204:
+          description: "Garage group deleted successfully"
+        404:
+          description: "Garage group not found"
+    
+  /garageGroups/{groupId}/{userId}:
+    post:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/addUserToGarageGroupFunction
+      summary: "Add a user to a garage group"
+      description: "Adds a user to the specified garage group."
+      operationId: "addUserToGarageGroup"
+      parameters:
+        - name: "groupId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the garage group"
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to add"
+      responses:
+        200:
+          description: "User added to garage group successfully"
+        404:
+          description: "Garage group or user not found"
+      
+    delete:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/removeUserFromGarageGroupFunction
+      summary: "Remove a user from a garage group"
+      description: "Removes a user from the specified garage group."
+      operationId: "removeUserFromGarageGroup"
+      parameters:
+        - name: "groupId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the garage group"
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to remove"
+      responses:
+        204:
+          description: "User removed from garage group successfully"
+        404:
+          description: "Garage group or user not found"
+
 definitions:
   User:
     type: "object"

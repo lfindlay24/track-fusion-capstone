@@ -9,17 +9,17 @@ firebase_admin.initialize_app()
 # Firestore DB instance
 db = firestore.client()
 
-def GetOneUser_http(request: Request):
+def getOneGroup_http(request: Request):
 
-    userAsDict = {}
+    groupAsDict = {}
 
-    userId = request.args.get('userId')
+    groupId = request.args.get('groupId')
     
-    if not userId:
+    if not groupId:
         return 'ERROR: Path Variable Invalid or Missing', 400
 
-    user = db.collection('users').document(userId).get()
-    if not user.exists:
-        return 'ERROR: User not found', 400
-    userAsDict[user.id] = user.to_dict()
-    return userAsDict, 200
+    group = db.collection('GarageGroups').document(groupId).get()
+    if not group.exists:
+        return 'ERROR: Group not found', 400
+    groupAsDict[group.id] = group.to_dict()
+    return groupAsDict, 200

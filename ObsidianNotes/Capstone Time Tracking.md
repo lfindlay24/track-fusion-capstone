@@ -12,3 +12,5 @@
 | Tuesday 10/1   | 2:00-3:30   | 90             | Setting up API Gateway and Making my first Cloud Function    |
 | Wednesday 10/2 | 8:00-10:00  | 120            | Getting User API Set up and starting making functions for it |
 | Wednesday 10/2 | 10:30-11:00 | 30             | Update User function                                         |
+| Wednesday 10/2 | 1:00-1:10   | 10             | Get One User function                                        |
+| Wednesday 10/2 | 2:45-3:45   | 60             | Finished User Functions and Started on Garage Functions      |
