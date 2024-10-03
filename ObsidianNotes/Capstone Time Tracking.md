@@ -14,3 +14,4 @@
 | Wednesday 10/2 | 10:30-11:00 | 30             | Update User function                                         |
 | Wednesday 10/2 | 1:00-1:10   | 10             | Get One User function                                        |
 | Wednesday 10/2 | 2:45-3:45   | 60             | Finished User Functions and Started on Garage Functions      |
+| Thursday 30/3  | 8:00-10:00  | 120            | Most Garage functions completed                              |

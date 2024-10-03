@@ -266,6 +266,28 @@ paths:
           description: "User removed from garage group successfully"
         404:
           description: "Garage group or user not found"
+  /garageGroups/search/{searchTerm}:
+    get:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/searchGarageGroupsFunction
+      summary: "Search for garage groups"
+      description: "Searches for garage groups based on the provided search term."
+      operationId: "searchGarageGroups"
+      parameters:
+        - name: "searchTerm"
+          in: "path"
+          required: true
+          type: "string"
+          description: "Search term to use"
+      responses:
+        200:
+          description: "An array of garage groups matching the search term"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/GarageGroup"
+        404:
+          description: "No garage groups found"
 
 definitions:
   User:
