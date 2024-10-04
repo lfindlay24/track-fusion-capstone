@@ -3,8 +3,23 @@ import 'package:flutter/widgets.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/main_drawer.dart';
 
-class Garages extends StatelessWidget {
+class Garages extends StatefulWidget {
   static const routeName = '/garages';
+
+  @override
+  State<StatefulWidget> createState() => GaragesState();
+}
+
+class GaragesState extends State<Garages> {
+  final textMessageController = TextEditingController();
+
+  final List<String> _messages = [];
+
+  void _addMessage(String message) {
+    setState(() {
+      _messages.insert(0, message);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +33,23 @@ class Garages extends StatelessWidget {
           ),
         ],
       ),
-      body: Expanded(
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: MessageBox(),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              reverse: true,
+              shrinkWrap: true,
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                return MessageDisplay(message: _messages[index]);
+              },
+            ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: MessageBox(textMessageController, this),
+          ),
+        ],
       ),
       drawer: MainDrawer(),
     );
@@ -33,26 +57,32 @@ class Garages extends StatelessWidget {
 }
 
 class MessageBox extends StatelessWidget {
+  late GaragesState parent;
 
-  final TextEditingController _messageController =
-    TextEditingController();
+  late TextEditingController _messageController;
+
+  MessageBox(TextEditingController messageController, GaragesState parent) {
+    _messageController = messageController;
+    this.parent = parent;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  TextField(
-        controller: _messageController,
-        decoration: InputDecoration(
-          suffixIcon: IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {
-              debugPrint('Message sent');
-              debugPrint(_messageController.text);
-            },
-          ),
-          border: OutlineInputBorder(),
-          labelText: 'Message',
+    return TextField(
+      controller: _messageController,
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: Icon(Icons.send),
+          onPressed: () {
+            debugPrint('Message sent');
+            debugPrint(_messageController.text);
+            parent._addMessage(_messageController.text);
+          },
         ),
-      );
+        border: OutlineInputBorder(),
+        labelText: 'Message',
+      ),
+    );
   }
 }
 
@@ -65,7 +95,10 @@ class MessageDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Column();
+    return Card(
+      child: ListTile(
+        title: Text(message),
+      ),
+    );
   }
 }

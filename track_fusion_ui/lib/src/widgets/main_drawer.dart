@@ -7,7 +7,7 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            child: Text('Drawer Header'),
+            child: Text('Track Fusion'),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
@@ -23,7 +23,7 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
           ListTile(
-            title: Text('Item 2'),
+            title: Text('Garages'),
             onTap: () {
               Navigator.pop(context);
               if (ModalRoute.of(context)!.settings.name != '/garages') {

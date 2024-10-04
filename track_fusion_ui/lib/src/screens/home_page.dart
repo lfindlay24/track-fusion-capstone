@@ -16,6 +16,9 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.notifications),
             onPressed: () {},
           ),
+          IconButton(onPressed: () {
+            Navigator.pushNamed(context, '/login');
+          }, icon: Icon(Icons.login_rounded))
         ],
       ),
       body: Center(

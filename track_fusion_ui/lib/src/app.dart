@@ -3,6 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:track_fusion_ui/src/screens/garages.dart';
 import 'package:track_fusion_ui/src/screens/home_page.dart';
+import 'package:track_fusion_ui/src/screens/login.dart';
+import 'package:track_fusion_ui/src/screens/test.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and
           // returns to the app after it has been killed while running in the
@@ -75,6 +78,10 @@ class MyApp extends StatelessWidget {
                     return HomePage();
                   case Garages.routeName:
                     return Garages();
+                  case Test.routeName:
+                    return Test();
+                  // case LoginScreen.routeName:
+                  //   return LoginScreen();
                   case SampleItemListView.routeName:
                   default:
                     return const SampleItemListView();
