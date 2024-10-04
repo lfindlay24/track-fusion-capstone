@@ -80,8 +80,8 @@ class MyApp extends StatelessWidget {
                     return Garages();
                   case Test.routeName:
                     return Test();
-                  // case LoginScreen.routeName:
-                  //   return LoginScreen();
+                  case LoginPage.routeName:
+                    return LoginPage();
                   case SampleItemListView.routeName:
                   default:
                     return const SampleItemListView();

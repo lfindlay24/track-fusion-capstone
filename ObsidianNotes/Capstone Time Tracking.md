@@ -18,3 +18,4 @@
 | Thursday 10/3  | 12:00-12:30 | 30             | Getting Algolia search engine set up.                                    |
 | Thursday 10/3  | 5:00-6:00   | 60             | Getting Started on the Flutter UI                                        |
 | Thursday 10/3  | 7:00-9:00   | 120            | Added for UI stuff and fixed some errors when trying to build to android |
+| Friday 10/4    | 8:00-11:00  | 180            | Added a bunch of UI elements and got started on the garage functionality |
