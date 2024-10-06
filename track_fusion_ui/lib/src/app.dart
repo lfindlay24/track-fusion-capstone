@@ -5,6 +5,7 @@ import 'package:track_fusion_ui/src/screens/garages.dart';
 import 'package:track_fusion_ui/src/screens/home_page.dart';
 import 'package:track_fusion_ui/src/screens/login.dart';
 import 'package:track_fusion_ui/src/screens/test.dart';
+import 'package:track_fusion_ui/src/screens/register.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -82,6 +83,8 @@ class MyApp extends StatelessWidget {
                     return Test();
                   case LoginPage.routeName:
                     return LoginPage();
+                  case Register.routeName:
+                    return Register();
                   case SampleItemListView.routeName:
                   default:
                     return const SampleItemListView();

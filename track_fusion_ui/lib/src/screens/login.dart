@@ -45,7 +45,7 @@ class LoginPage extends StatelessWidget {
               ),
               const TextField(
                 decoration: InputDecoration(
-                  labelText: 'Username',
+                  labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
               ),
