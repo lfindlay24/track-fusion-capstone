@@ -21,8 +21,12 @@ class HomePage extends StatelessWidget {
           }, icon: Icon(Icons.login_rounded))
         ],
       ),
-      body: Center(
-        child: Text('Home Page'),
+      body: const Center(
+        child: Image(
+          image: AssetImage('assets/images/TrackFusionLogo300.png'),
+          width: 200,
+          height: 200,
+        ),
       ),
       drawer: MainDrawer(),
     );
