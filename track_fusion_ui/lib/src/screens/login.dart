@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/main_drawer.dart';
 import 'package:track_fusion_ui/globals.dart' as globals;
-import 'package:conduit_password_hash/conduit_password_hash.dart';
+import 'package:crypt/crypt.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -61,7 +61,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
+                TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
@@ -105,29 +106,39 @@ class LoginPage extends StatelessWidget {
   void registerUser(BuildContext context) async {
     var email = emailController.text;
     var password = passwordController.text;
-    var hashedPassword = globals.saltAndHashPassword(password);
     var apiBasePath = globals.apiBasePath;
 
-    var postBody = {"email": email, "password": hashedPassword};
-
-    final response = await http.post(
-      Uri.parse('$apiBasePath/login'),
-      body: json.encode(postBody),
+    final response = await http.get(
+      Uri.parse('$apiBasePath/users/$email'),
       headers: {
         'Content-Type': 'application/json',
       },
     );
-    debugPrint('Error: ${response.body}');
-    debugPrint('Request Body: ${json.encode(postBody)}');
-    globals.userId = email;
+
     if (response.statusCode == 200) {
-      Navigator.pushNamed(context, '/home');
+      var user = jsonDecode(response.body);
+      var hashedPassword = Crypt(user[email]['password']);
+      debugPrint(hashedPassword.toString() + "\n" + password);
+      debugPrint(user[email]['password']);
+      if (hashedPassword.match(password)) {
+        globals.userId = email;
+        debugPrint(globals.userId + " User Logged In");
+        Navigator.pushNamed(context, '/');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid password'),
+          ),
+        );
+        debugPrint("Invalid Password");
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error logging in user'),
+          content: Text('User not found'),
         ),
       );
+      debugPrint(globals.userId);
     }
   }
 }
