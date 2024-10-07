@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:conduit_password_hash/conduit_password_hash.dart';
+import 'package:crypt/crypt.dart';
+import 'package:track_fusion_ui/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Register extends StatefulWidget {
   static const routeName = '/register';
@@ -18,6 +21,10 @@ class _RegisterState extends State<Register> {
   bool _isConfirmPasswordValid = false;
 
   bool _hidePassword = true;
+
+  TextEditingController firstNameController = TextEditingController();
+
+  TextEditingController lastNameController = TextEditingController();
 
   TextEditingController emailController = TextEditingController();
 
@@ -48,114 +55,175 @@ class _RegisterState extends State<Register> {
                 ),
               ],
             ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Image(
-                    image: AssetImage('assets/images/TrackFusionLogo.png'),
-                    width: 200,
-                    height: 200,
-                  ),
-                  TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: const OutlineInputBorder(),
-                      errorText:
-                          _isEmailValid ? null : 'Please enter a valid email',
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Image(
+                      image: AssetImage('assets/images/TrackFusionLogo.png'),
+                      width: 200,
+                      height: 200,
                     ),
-                    validator: validateEmail,
-                    onChanged: (value) {
-                      setState(() {
-                        _isEmailValid =
-                            RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                .hasMatch(value);
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: _hidePassword,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: _hidePassword
-                            ? const Icon(Icons.visibility)
-                            : const Icon(Icons.visibility_off),
-                        onPressed: () => setState(() {
-                          _hidePassword = !_hidePassword;
-                        }),
+                    TextFormField(
+                      textCapitalization: TextCapitalization.words,
+                      controller: firstNameController,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: 'First Name',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
                       ),
-                      hintText: 'Password',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: const OutlineInputBorder(),
-                      errorText: _isPasswordValid
-                          ? null
-                          : 'Password must be at least 8 characters, contain a number, an uppercase and a lowercase letter, and a special character',
                     ),
-                    validator: validatePassword,
-                    onChanged: (value) {
-                      setState(() {
-                        _isPasswordValid = RegExp(
-                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                            .hasMatch(value);
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: confirmPasswordController,
-                    obscureText: _hidePassword,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: _hidePassword
-                            ? const Icon(Icons.visibility)
-                            : const Icon(Icons.visibility_off),
-                        onPressed: () => setState(() {
-                          _hidePassword =! _hidePassword;
-                        }),
+                    TextFormField(
+                      textCapitalization: TextCapitalization.words,
+                      controller: lastNameController,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: 'Last Name',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
                       ),
-                      hintText: 'Confirm Password',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: const OutlineInputBorder(),
-                      errorText: _isConfirmPasswordValid
+                    ),
+                    TextFormField(
+                      controller: emailController,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
+                        errorText:
+                            _isEmailValid ? null : 'Please enter a valid email',
+                      ),
+                      validator: validateEmail,
+                      onChanged: (value) {
+                        setState(() {
+                          _isEmailValid =
+                              RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                  .hasMatch(value);
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: _hidePassword,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: _hidePassword
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                          onPressed: () => setState(() {
+                            _hidePassword = !_hidePassword;
+                          }),
+                        ),
+                        hintText: 'Password',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
+                        errorText: _isPasswordValid
+                            ? null
+                            : 'Password must be at least 8 characters, contain a number, an uppercase and a lowercase letter, and a special character',
+                      ),
+                      validator: validatePassword,
+                      onChanged: (value) {
+                        setState(() {
+                          _isPasswordValid = RegExp(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                              .hasMatch(value);
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    TextFormField(
+                      controller: confirmPasswordController,
+                      obscureText: _hidePassword,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: _hidePassword
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                          onPressed: () => setState(() {
+                            _hidePassword = !_hidePassword;
+                          }),
+                        ),
+                        hintText: 'Confirm Password',
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
+                        errorText: _isConfirmPasswordValid
+                            ? null
+                            : 'Passwords must match',
+                      ),
+                      validator: validateConfirmPassword,
+                      onChanged: (value) {
+                        setState(() {
+                          _isConfirmPasswordValid =
+                              validateConfirmPassword(value) == null;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16.0),
+                    ElevatedButton.icon(
+                      style: validateForm()
                           ? null
-                          : 'Passwords must match',
+                          : ButtonStyle(
+                              backgroundColor:
+                                  WidgetStateProperty.all(Colors.grey),
+                            ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+                          registerUser();
+                        }
+                      },
+                      label: const Text('Submit'),
+                      icon: validateForm()
+                          ? const Icon(Icons.send)
+                          : const Icon(Icons.error),
                     ),
-                    validator: validateConfirmPassword,
-                    onChanged: (value) {
-                      setState(() {
-                        _isConfirmPasswordValid = validateConfirmPassword(value) == null;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16.0),
-                  ElevatedButton.icon(
-                    style: validateForm() ? null : ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.grey),
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                    },
-                    label: const Text('Submit'),
-                    icon: validateForm() ? const Icon(Icons.send) : const Icon(Icons.error),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void registerUser() async {
+    var email = emailController.text;
+    var password = passwordController.text;
+    var hashedPassword = globals.saltAndHashPassword(password);
+    var apiBasePath = globals.apiBasePath;
+
+    var postBody = {
+      "name": firstNameController.text + ' ' + lastNameController.text,
+      "email": email,
+      "password": hashedPassword
+    };
+
+    final response = await http.post(
+      Uri.parse('$apiBasePath/users'),
+      body: json.encode(postBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    globals.userId = email;
+    if (response.statusCode == 200) {
+      Navigator.pushNamed(context, '/login');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error registering user: ${response.statusCode}'),
+        ),
+      );
+    }
   }
 
   bool validateForm() {
@@ -190,17 +258,10 @@ class _RegisterState extends State<Register> {
   }
 
   String? validateConfirmPassword(String? value) {
-    if ( confirmPasswordController.text == passwordController.text) {
+    if (confirmPasswordController.text == passwordController.text) {
       return null;
     } else {
       return 'Passwords do not match';
     }
-  }
-
-  String? saltAndHashPassword(String password) {
-    var generator = PBKDF2();
-    var salt = generateAsBase64String(32);
-    var hash = generator.generateBase64Key(password, salt, 1000, 32);
-    return hash;
   }
 }

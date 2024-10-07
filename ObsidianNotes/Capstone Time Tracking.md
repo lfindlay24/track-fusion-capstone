@@ -23,10 +23,11 @@ Week 1
 
 Week 2
 
-| Day         | Time      | Minutes Worked | Worked On                                                                |
-| ----------- | --------- | -------------- | ------------------------------------------------------------------------ |
-| Sunday 10/6 | 1:00-2:00 | 60             | Made a logo and finished the log in page                                 |
-| Sunday 10/6 | 3:20-4:20 | 60             | Worked on the register page                                              |
-| Sunday 10/6 | 8:00-9:00 | 60             | Data validation on register page and fixed some bugs on the Garages page |
+| Day         | Time       | Minutes Worked | Worked On                                                                |
+| ----------- | ---------- | -------------- | ------------------------------------------------------------------------ |
+| Sunday 10/6 | 1:00-2:00  | 60             | Made a logo and finished the log in page                                 |
+| Sunday 10/6 | 3:20-4:20  | 60             | Worked on the register page                                              |
+| Sunday 10/6 | 8:00-9:00  | 60             | Data validation on register page and fixed some bugs on the Garages page |
+| Monday 10/7 | 8:30-10:30 | 120            | Linked registration to api started linking login                         |
 
 

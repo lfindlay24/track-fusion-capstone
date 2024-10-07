@@ -288,6 +288,32 @@ paths:
               $ref: "#/definitions/GarageGroup"
         404:
           description: "No garage groups found"
+  /login:
+    post:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/loginFunction
+      summary: "Login to the application"
+      description: "Logs a user into the application."
+      operationId: "login"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User credentials for login"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                description: "Email of the user"
+              password:
+                type: "string"
+                description: "Password of the user"
+      responses:
+        200:
+          description: "Login successful"
+        401:
+          description: "Invalid credentials"
 
 definitions:
   User:
