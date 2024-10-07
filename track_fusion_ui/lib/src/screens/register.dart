@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:conduit_password_hash/conduit_password_hash.dart';
 
 class Register extends StatefulWidget {
   static const routeName = '/register';
@@ -10,12 +11,19 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
 
-  bool _isEmailValid= false;
+  bool _isEmailValid = false;
 
   bool _isPasswordValid = false;
 
+  bool _isConfirmPasswordValid = false;
+
   bool _hidePassword = true;
 
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,45 +64,58 @@ class _RegisterState extends State<Register> {
                       hintText: 'Email',
                       hintStyle: const TextStyle(color: Colors.grey),
                       border: const OutlineInputBorder(),
-                      errorText: _isEmailValid ? null : 'Please enter a valid email',
+                      errorText:
+                          _isEmailValid ? null : 'Please enter a valid email',
                     ),
                     validator: validateEmail,
                     onChanged: (value) {
                       setState(() {
-                        _isEmailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value);
+                        _isEmailValid =
+                            RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                .hasMatch(value);
                       });
                     },
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
+                    controller: passwordController,
                     obscureText: _hidePassword,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: _hidePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                        icon: _hidePassword
+                            ? const Icon(Icons.visibility)
+                            : const Icon(Icons.visibility_off),
                         onPressed: () => setState(() {
-                          _hidePassword =! _hidePassword;
+                          _hidePassword = !_hidePassword;
                         }),
                       ),
                       hintText: 'Password',
                       hintStyle: const TextStyle(color: Colors.grey),
                       border: const OutlineInputBorder(),
-                      errorText: _isPasswordValid ? null : 'Password must be at least 8 characters, contain a number, an uppercase and a lowercase letter, and a special character',
+                      errorText: _isPasswordValid
+                          ? null
+                          : 'Password must be at least 8 characters, contain a number, an uppercase and a lowercase letter, and a special character',
                     ),
                     validator: validatePassword,
                     onChanged: (value) {
                       setState(() {
-                        _isPasswordValid = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value);
+                        _isPasswordValid = RegExp(
+                                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                            .hasMatch(value);
                       });
                     },
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
+                    controller: confirmPasswordController,
                     obscureText: _hidePassword,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: _hidePassword ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                        icon: _hidePassword
+                            ? const Icon(Icons.visibility)
+                            : const Icon(Icons.visibility_off),
                         onPressed: () => setState(() {
                           _hidePassword =! _hidePassword;
                         }),
@@ -102,17 +123,22 @@ class _RegisterState extends State<Register> {
                       hintText: 'Confirm Password',
                       hintStyle: const TextStyle(color: Colors.grey),
                       border: const OutlineInputBorder(),
-                      errorText: _isPasswordValid ? null : 'Password must be at least 8 characters, contain a number, an uppercase and a lowercase letter, and a special character',
+                      errorText: _isConfirmPasswordValid
+                          ? null
+                          : 'Passwords must match',
                     ),
-                    validator: validatePassword,
+                    validator: validateConfirmPassword,
                     onChanged: (value) {
                       setState(() {
-                        _isPasswordValid = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value);
+                        _isConfirmPasswordValid = validateConfirmPassword(value) == null;
                       });
                     },
                   ),
                   const SizedBox(height: 16.0),
-                  ElevatedButton(
+                  ElevatedButton.icon(
+                    style: validateForm() ? null : ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all(Colors.grey),
+                    ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -120,7 +146,8 @@ class _RegisterState extends State<Register> {
                         );
                       }
                     },
-                    child: const Text('Submit'),
+                    label: const Text('Submit'),
+                    icon: validateForm() ? const Icon(Icons.send) : const Icon(Icons.error),
                   ),
                 ],
               ),
@@ -129,6 +156,10 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  bool validateForm() {
+    return _isEmailValid && _isPasswordValid && _isConfirmPasswordValid;
   }
 
   String? validateEmail(String? value) {
@@ -148,12 +179,28 @@ class _RegisterState extends State<Register> {
     if (value == null || value.isEmpty) {
       return 'Password is required';
     }
-    if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value)) {
+    if (!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+        .hasMatch(value)) {
       return 'Password must be at least 8 characters, contain a number, an uppercase and a lowercase letter, and a special character';
     }
     setState(() {
       _isPasswordValid = true;
     });
     return null;
+  }
+
+  String? validateConfirmPassword(String? value) {
+    if ( confirmPasswordController.text == passwordController.text) {
+      return null;
+    } else {
+      return 'Passwords do not match';
+    }
+  }
+
+  String? saltAndHashPassword(String password) {
+    var generator = PBKDF2();
+    var salt = generateAsBase64String(32);
+    var hash = generator.generateBase64Key(password, salt, 1000, 32);
+    return hash;
   }
 }

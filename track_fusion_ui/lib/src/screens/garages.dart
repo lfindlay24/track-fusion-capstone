@@ -66,23 +66,32 @@ class MessageBox extends StatelessWidget {
     this.parent = parent;
   }
 
+  void sendMessage() {
+    debugPrint('Message sent');
+    debugPrint(_messageController.text);
+    parent._addMessage(_messageController.text);
+    _messageController.clear();
+  } 
+
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _messageController,
-      decoration: InputDecoration(
-        suffixIcon: IconButton(
-          icon: Icon(Icons.send),
-          onPressed: () {
-            debugPrint('Message sent');
-            debugPrint(_messageController.text);
-            parent._addMessage(_messageController.text);
-          },
-        ),
-        border: OutlineInputBorder(),
-        labelText: 'Message',
-      ),
-    );
+      return TextField(
+        textInputAction: TextInputAction.none,
+        onSubmitted: (value) {
+          sendMessage();
+        },
+        controller: _messageController,
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            icon: Icon(Icons.send),
+            onPressed: () {
+              sendMessage();
+            },
+          ),
+          border: OutlineInputBorder(),
+          labelText: 'Message',
+        )
+      );
   }
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/main_drawer.dart';
 import 'package:track_fusion_ui/globals.dart';
+import 'package:conduit_password_hash/conduit_password_hash.dart';
 
 class LoginPage extends StatelessWidget {
   static const routeName = '/login';
