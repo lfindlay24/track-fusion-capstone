@@ -30,5 +30,6 @@ Week 2
 | Sunday 10/6 | 8:00-9:00  | 60             | Data validation on register page and fixed some bugs on the Garages page               |
 | Monday 10/7 | 8:30-10:30 | 120            | Linked registration to api started linking login Passwords are fully hashed and salted |
 | Monday 10/7 | 12:20-1:20 | 60             | Users can log in to the website                                                        |
+| 8:00-9:30   | 8:00-9:30  | 90             | Researched websocket server implementation.                                            |
 
 
