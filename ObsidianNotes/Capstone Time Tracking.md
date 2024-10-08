@@ -32,5 +32,6 @@ Week 2
 | Monday 10/7  | 12:20-1:20 | 60             | Users can log in to the website                                                        |
 | Monday 10/7  | 8:45-9:45  | 60             | Researched Websockets (I'm Scared)                                                     |
 | Tuesday 10/8 | 8:00-9:30  | 90             | Researched websocket server implementation.                                            |
+| Tuesday 10/8 | 10:10-1040 | 30             | Started my own implementation of a webSocketServer                                     |
 
 
