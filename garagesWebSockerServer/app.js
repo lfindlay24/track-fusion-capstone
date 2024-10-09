@@ -1,20 +1,28 @@
+const express = require('express');
+// const { redisClient, getRoomFromCache, addMessageToCache } = require('./redis');
+ const { addUser, getUser, deleteUser } = require('./users');
+
+const app = express();
+
+
 // Initialize Socket.io
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 // [START cloudrun_websockets_redis_adapter]
-const { createAdapter } = require('@socket.io/redis-adapter');
+// const { createAdapter } = require('@socket.io/redis-adapter');
 // Replace in-memory adapter with Redis
-const subClient = redisClient.duplicate();
-io.adapter(createAdapter(redisClient, subClient));
+// const subClient = redisClient.duplicate();
+// io.adapter(createAdapter(redisClient, subClient));
 // [END cloudrun_websockets_redis_adapter]
 // Add error handlers
-redisClient.on('error', err => {
-  console.error(err.message);
-});
+// redisClient.on('error', err => {
+//   console.error(err.message);
+// });
 
-subClient.on('error', err => {
-  console.error(err.message);
-});
+// subClient.on('error', err => {
+//   console.error(err.message);
+// });
 
 // Listen for new connection
 // When a connection is established listen for different events within the server
@@ -25,7 +33,7 @@ io.on('connection', socket => {
     socket.on('signin', async ({ user, room }, callback) => {
       try {
         // Record socket ID to user's name and chat room
-        addUser(socket.id, user, room);
+         addUser(socket.id, user, room);
         // Call join to subscribe the socket to a given channel
         socket.join(room);
         // Emit notification event
@@ -34,7 +42,7 @@ io.on('connection', socket => {
           description: `${user} just entered the room`,
         });
         // Retrieve room's message history or return null
-        const messages = await getRoomFromCache(room);
+        const messages = null //await getRoomFromCache(room);
         // Use the callback to respond with the room's message history
         // Callbacks are more commonly used for event listeners than promises
         callback(null, messages);
@@ -47,7 +55,8 @@ io.on('connection', socket => {
     // Add listener for "updateSocketId" event
     socket.on('updateSocketId', async ({ user, room }) => {
       try {
-        addUser(socket.id, user, room);
+        user
+        // addUser(socket.id, user, room);
         socket.join(room);
       } catch (err) {
         console.error(err);
@@ -63,7 +72,7 @@ io.on('connection', socket => {
         const msg = { user, text: message };
         // Push message to clients in chat room
         io.in(room).emit('message', msg);
-        addMessageToCache(room, msg);
+        //addMessageToCache(room, msg);
         callback();
       } else {
         callback('User session not found.');
