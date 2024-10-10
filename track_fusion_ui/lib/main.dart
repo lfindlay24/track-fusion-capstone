@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'src/app.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
+import 'globals.dart' as globals;
 
 void main() async {
   // Set up the SettingsController, which will glue user settings to multiple

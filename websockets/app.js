@@ -14,7 +14,7 @@
 
 const express = require('express');
 const { redisClient, getRoomFromCache, addMessageToCache } = require('./redis');
-const { addUser, getUser, deleteUser } = require('./users');
+const { addUser, getUser, deleteUser } = require('../garagesWebSockerServer/users');
 
 const app = express();
 app.use(express.static(__dirname + '/public'));

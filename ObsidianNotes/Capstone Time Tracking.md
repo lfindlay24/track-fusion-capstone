@@ -23,15 +23,19 @@ Week 1
 
 Week 2
 
-| Day          | Time       | Minutes Worked | Worked On                                                                              |
-| ------------ | ---------- | -------------- | -------------------------------------------------------------------------------------- |
-| Sunday 10/6  | 1:00-2:00  | 60             | Made a logo and finished the log in page                                               |
-| Sunday 10/6  | 3:20-4:20  | 60             | Worked on the register page                                                            |
-| Sunday 10/6  | 8:00-9:00  | 60             | Data validation on register page and fixed some bugs on the Garages page               |
-| Monday 10/7  | 8:30-10:30 | 120            | Linked registration to api started linking login Passwords are fully hashed and salted |
-| Monday 10/7  | 12:20-1:20 | 60             | Users can log in to the website                                                        |
-| Monday 10/7  | 8:45-9:45  | 60             | Researched Websockets (I'm Scared)                                                     |
-| Tuesday 10/8 | 8:00-9:30  | 90             | Researched websocket server implementation.                                            |
-| Tuesday 10/8 | 10:10-1040 | 30             | Started my own implementation of a webSocketServer                                     |
+| Day            | Time          | Minutes Worked | Worked On                                                                              |
+| -------------- | ------------- | -------------- | -------------------------------------------------------------------------------------- |
+| Sunday 10/6    | 1:00-2:00     | 60             | Made a logo and finished the log in page                                               |
+| Sunday 10/6    | 3:20-4:20     | 60             | Worked on the register page                                                            |
+| Sunday 10/6    | 8:00-9:00     | 60             | Data validation on register page and fixed some bugs on the Garages page               |
+| Monday 10/7    | 8:30-10:30    | 120            | Linked registration to api started linking login Passwords are fully hashed and salted |
+| Monday 10/7    | 12:20-1:20    | 60             | Users can log in to the website                                                        |
+| Monday 10/7    | 8:45-9:45     | 60             | Researched Websockets (I'm Scared)                                                     |
+| Tuesday 10/8   | 8:00-9:30     | 90             | Researched websocket server implementation.                                            |
+| Tuesday 10/8   | 10:10-1040    | 30             | Started my own implementation of a webSocketServer                                     |
+| Tuesday 10/8   | 2:00 - 4:00   | 120            | Worked on the web socket server                                                        |
+| Wednesday 10/9 | 8:00-10:00    | 120            | Successfully created my own wss starting working on connecting via flutter.            |
+| Wednesday 10/9 | 10:30 - 11:00 | 30             | Working on WSS flutter connection                                                      |
+| Wednesday 10/9 | 11:30-11:40   | 10             | Flutter Successfully connected to cloud wss server                                     |
 
 

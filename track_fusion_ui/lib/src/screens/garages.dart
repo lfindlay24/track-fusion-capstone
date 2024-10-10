@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/main_drawer.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Garages extends StatefulWidget {
   static const routeName = '/garages';
@@ -11,9 +12,40 @@ class Garages extends StatefulWidget {
 }
 
 class GaragesState extends State<Garages> {
+  final IO.Socket _socket = IO.io(
+      'https://socket-server-63629209317.us-central1.run.app',
+      IO.OptionBuilder().setTransports(['websocket']).build());
+
   final textMessageController = TextEditingController();
 
   final List<String> _messages = [];
+
+  _connectSocket() {
+    _socket.onConnect((data) {
+      print('Connected to WSS Server');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Connected to WSS Server')),
+      );
+    });
+    _socket.onDisconnect((data) {
+      print('Disconnected from WSS Server');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Disconnected from WSS Server')),
+      );
+    });
+    _socket.onConnectError((data) {
+      print('Connection error: $data');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Errr when connecting to WSS Server')),
+      );
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _connectSocket();
+  }
 
   void _addMessage(String message) {
     setState(() {
@@ -71,11 +103,11 @@ class MessageBox extends StatelessWidget {
     debugPrint(_messageController.text);
     parent._addMessage(_messageController.text);
     _messageController.clear();
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
-      return TextField(
+    return TextField(
         textInputAction: TextInputAction.none,
         onSubmitted: (value) {
           sendMessage();
@@ -90,8 +122,7 @@ class MessageBox extends StatelessWidget {
           ),
           border: OutlineInputBorder(),
           labelText: 'Message',
-        )
-      );
+        ));
   }
 }
 
