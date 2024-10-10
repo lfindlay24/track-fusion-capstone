@@ -23,5 +23,8 @@ gcloud run deploy chat-app --source . --allow-unauthenticated --timeout 3600 --s
 // Create Redis Connector
 gcloud compute networks vpc-access connectors create redis-connector --region us-central1 --range "10.8.0.0/28"
 
+//Create Container for gcloud to use
+gcloud builds submit --tag gcr.io/utahjazz24/socket-server
+
 //Deployment Command for garagesWebSocketServer
 gcloud run deploy socket-server --image gcr.io/utahjazz24/socket-server --platform managed --allow-unauthenticated --service-account GaragesChat --timeout 3600

@@ -18,6 +18,7 @@ io.on('connection', (socket) => {
     //When A user signs in they are added to the group, connection to the group is established
     socket.on('signin', async ({ user, room }) => {
         try {
+            console.log('User signed in:', user, room);
             // Record socket ID to user's name and chat room
             addUser(socket.id, user, room);
             // Call join to subscribe the socket to a given channel
@@ -41,7 +42,7 @@ io.on('connection', (socket) => {
         // Retrieve user's name and chat room  from socket ID
         const { user, room } = getUser(socket.id);
         if (room) {
-            const msg = { user, text: message };
+            const msg = { user, text: message, time: Date.now() };
             // Push message to clients in chat room
             io.in(room).emit('message', msg);
             //addMessageToCache(room, msg);

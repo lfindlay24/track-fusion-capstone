@@ -37,5 +37,7 @@ Week 2
 | Wednesday 10/9 | 8:00-10:00    | 120            | Successfully created my own wss starting working on connecting via flutter.            |
 | Wednesday 10/9 | 10:30 - 11:00 | 30             | Working on WSS flutter connection                                                      |
 | Wednesday 10/9 | 11:30-11:40   | 10             | Flutter Successfully connected to cloud wss server                                     |
+| Thursday 10/10 | 8:00-10:15    | 135            | Can successfully send messages back and forth in my app.                               |
+| Thursday 10/10 | 10:40-11:00   | 20             | Worked on refining message UI                                                          |
 
 

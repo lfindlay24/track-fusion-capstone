@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:track_fusion_ui/globals.dart' as globals;
 import 'dart:io' show Platform;
 
 class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
@@ -25,7 +26,12 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
           ),
           ListTile(
             title: Text('Garages'),
+            trailing: globals.userId == '' ? Icon(Icons.lock) : null,
             onTap: () {
+              //If user isnt logged in, don't allow access to garages
+              if (globals.userId == '') {
+                return;
+              }
               Navigator.pop(context);
               if (ModalRoute.of(context)!.settings.name != '/garages') {
                 Navigator.pushNamed(context, '/garages');
@@ -52,7 +58,11 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
           ),
           ListTile(
             title: Text('Race Mode'),
-            trailing: kIsWeb ? Icon(Icons.lock) : Platform.isWindows ? Icon(Icons.lock) : null,
+            trailing: kIsWeb
+                ? Icon(Icons.lock)
+                : Platform.isWindows
+                    ? Icon(Icons.lock)
+                    : null,
             onTap: () {
               debugPrint("Is web? $kIsWeb");
               if (!kIsWeb && !Platform.isWindows) {
