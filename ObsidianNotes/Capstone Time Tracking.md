@@ -39,5 +39,6 @@ Week 2
 | Wednesday 10/9 | 11:30-11:40   | 10             | Flutter Successfully connected to cloud wss server                                     |
 | Thursday 10/10 | 8:00-10:15    | 135            | Can successfully send messages back and forth in my app.                               |
 | Thursday 10/10 | 10:40-11:00   | 20             | Worked on refining message UI                                                          |
+| Thursday 10/10 | 8:00-9:00     | 60             | Refined the messaging UI, came up with my solution for message history retrieval.      |
 
 

@@ -215,7 +215,7 @@ class MessageDisplay extends StatelessWidget {
       ),
       child: Card(
         child: ListTile(
-          tileColor: message.user == globals.userId ? Colors.blue[200] : Colors.grey[300],
+          dense: true,
           title: Text(message.text),
           subtitle: Text(message.user + ' - ' + DateFormat('HH:mm').format(message.dateTime)),
         ),
