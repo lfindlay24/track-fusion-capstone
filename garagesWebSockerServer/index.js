@@ -1,4 +1,5 @@
-const { addUser, getUser, deleteUser } = require('./users');
+const { addUser, getUser} = require('./users');
+const { addMessage } = require('./firestore');
 
 const express = require('express');
 const http = require('http');
@@ -47,6 +48,7 @@ io.on('connection', (socket) => {
             io.in(room).emit('message', msg);
             //addMessageToCache(room, msg);
             //callback();
+            addMessage(message, user, msg.time, room);
         } else {
             //callback('User session not found.');
         }

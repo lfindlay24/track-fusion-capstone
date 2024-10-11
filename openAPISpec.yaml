@@ -158,6 +158,30 @@ paths:
           description: "Invalid input"
     
   /garageGroups/{groupId}:
+    post:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/addMessageToGroupFunction
+      summary: "Add a message to a garage group"
+      description: "Adds a message to the specified garage group."
+      operationId: "addMessageToGroup"
+      parameters:
+        - name: "groupId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the garage group"
+        - in: "body"
+          name: "body"
+          description: "Message object to add"
+          required: true
+          schema:
+            $ref: "#/definitions/Message"
+      responses:
+        200:
+          description: "Message added to garage group successfully"
+        404:
+          description: "Garage group not found"
+
     get:
       x-google-backend:
         address: https://us-central1-utahjazz24.cloudfunctions.net/getGarageGroupByIdFunction
@@ -316,6 +340,22 @@ paths:
           description: "Invalid credentials"
 
 definitions:
+  Message:
+    required:
+      - "userId"
+      - "text"
+      - "time"
+    properties:
+      userId:
+        type: "string"
+        description: "ID of the user posting the message"
+      message:
+        type: "string"
+        description: "Content of the message"
+      time:
+        type: "integer"
+        format: "date-time"
+        description: "Time when the message was posted"
   User:
     type: "object"
     required:

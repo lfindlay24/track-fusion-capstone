@@ -7,6 +7,7 @@ import 'package:track_fusion_ui/globals.dart' as globals;
 import 'package:intl/intl.dart';
 
 class Garages extends StatefulWidget {
+
   static const routeName = '/garages';
 
   @override
@@ -14,6 +15,8 @@ class Garages extends StatefulWidget {
 }
 
 class GaragesState extends State<Garages> {
+  var dropdownValue = 'Select Garage';
+
   final IO.Socket _socket = IO.io(
       'https://socket-server-63629209317.us-central1.run.app',
       IO.OptionBuilder().setTransports(['websocket']).build());
@@ -74,6 +77,9 @@ class GaragesState extends State<Garages> {
 
   @override
   Widget build(BuildContext context) {
+
+    debugPrint("Current Garage: " + dropdownValue);
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Garages',
@@ -92,6 +98,22 @@ class GaragesState extends State<Garages> {
       ),
       body: Column(
         children: [
+          DropdownButton<String>(
+            items: <String>['Select Garage', 'dOpEBdZ59s2iEwYkVkKr', 'Garage 2', 'Garage 3']
+                .map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (String? value) {
+              setState(() {
+                dropdownValue = value!;
+                _signIn(value, globals.userId);
+              });
+            },
+            value: dropdownValue,
+          ),
           Expanded(
             child: ListView.builder(
               reverse: true,
