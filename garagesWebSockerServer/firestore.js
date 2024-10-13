@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 // Writes a message to Firestore
 async function addMessage(text, user, time, room) {
 
@@ -12,7 +14,6 @@ async function addMessage(text, user, time, room) {
             time: time,
         })
     })
-        .then(response => response.json())
         .then(data => {
             console.log(data);
         })
