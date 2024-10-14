@@ -55,6 +55,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 TextField(
                   controller: emailController,
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
                   decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
@@ -62,6 +65,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16.0),
                 TextField(
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',

@@ -41,5 +41,12 @@ Week 2
 | Thursday 10/10 | 10:40-11:00   | 20             | Worked on refining message UI                                                          |
 | Thursday 10/10 | 8:00-9:00     | 60             | Refined the messaging UI, came up with my solution for message history retrieval.      |
 | Friday 10/11   | 11:00- 1:30   | 150            | Worked on grabbing message history for garages.                                        |
+| Sunday 10/13   | 4:00-4:15     | 15             | Worked on saving messages for history retrieval                                        |
 
 
+Week 2
+
+| Day          | Time      | Minutes Worked | Worked On                                                         |
+| ------------ | --------- | -------------- | ----------------------------------------------------------------- |
+| Sunday 10/13 | 4:15-5:15 | 60             | Messages successfully being saved working on retrieving messages. |
+|              |           |                |                                                                   |

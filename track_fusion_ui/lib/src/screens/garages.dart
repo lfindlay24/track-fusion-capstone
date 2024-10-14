@@ -5,6 +5,8 @@ import '../widgets/main_drawer.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:track_fusion_ui/globals.dart' as globals;
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Garages extends StatefulWidget {
 
@@ -110,6 +112,12 @@ class GaragesState extends State<Garages> {
               setState(() {
                 dropdownValue = value!;
                 _signIn(value, globals.userId);
+                _fetchMessages(value).then((value) {
+                  setState(() {
+                    _messages.clear();
+                    _messages.addAll(value);
+                  });
+                });
               });
             },
             value: dropdownValue,
@@ -136,6 +144,34 @@ class GaragesState extends State<Garages> {
       ),
       drawer: MainDrawer(),
     );
+  }
+
+  Future<List<Message>> _fetchMessages(String groupName) async {
+    var apiBasePath = globals.apiBasePath;
+
+    final response = await http.get(
+      Uri.parse('$apiBasePath/garageGroups/$groupName'),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var group = jsonDecode(response.body);
+      List<Message> messages = group[groupName]['messages']
+          .map<Message>((message) => Message(
+              message['text'], message['user'],
+              DateTime.fromMillisecondsSinceEpoch(message['time']).toLocal()))
+          .toList();
+      return messages.reversed.toList();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed To Fetch Messages'),
+        ),
+      );
+      return [];
+    }
   }
 
   Future<void> _signInPopUp(BuildContext context) {
