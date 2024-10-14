@@ -46,7 +46,7 @@ Week 2
 
 Week 2
 
-| Day          | Time      | Minutes Worked | Worked On                                                         |
-| ------------ | --------- | -------------- | ----------------------------------------------------------------- |
-| Sunday 10/13 | 4:15-5:15 | 60             | Messages successfully being saved working on retrieving messages. |
-|              |           |                |                                                                   |
+| Day          | Time       | Minutes Worked | Worked On                                                         |
+| ------------ | ---------- | -------------- | ----------------------------------------------------------------- |
+| Sunday 10/13 | 4:15-5:15  | 60             | Messages successfully being saved working on retrieving messages. |
+| Monday 10/14 | 8:00-10:00 | 120            | Got started on the race mode UI                                   |

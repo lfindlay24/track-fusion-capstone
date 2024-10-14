@@ -48,15 +48,6 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
           ListTile(
-            title: Text('Login'),
-            onTap: () {
-              Navigator.pop(context);
-              if (ModalRoute.of(context)!.settings.name != '/login') {
-                Navigator.pushNamed(context, '/login');
-              }
-            },
-          ),
-          ListTile(
             title: Text('Race Mode'),
             trailing: kIsWeb
                 ? Icon(Icons.lock)
@@ -67,8 +58,8 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
               debugPrint("Is web? $kIsWeb");
               if (!kIsWeb && !Platform.isWindows) {
                 Navigator.pop(context);
-                if (ModalRoute.of(context)!.settings.name != '/login') {
-                  Navigator.pushNamed(context, '/login');
+                if (ModalRoute.of(context)!.settings.name != '/racemode') {
+                  Navigator.pushNamed(context, '/racemode');
                 }
               }
             },
