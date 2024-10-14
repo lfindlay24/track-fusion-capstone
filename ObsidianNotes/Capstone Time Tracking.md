@@ -50,3 +50,5 @@ Week 2
 | ------------ | ---------- | -------------- | ----------------------------------------------------------------- |
 | Sunday 10/13 | 4:15-5:15  | 60             | Messages successfully being saved working on retrieving messages. |
 | Monday 10/14 | 8:00-10:00 | 120            | Got started on the race mode UI                                   |
+| Monday 10/14 | 12:45-1:15 | 30             | Got started on the g-force widget.                                |
+| Monday 10/14 | 3:00-3:45  | 45             | G-force widget looks proper just need to link up accelerometer.   |
