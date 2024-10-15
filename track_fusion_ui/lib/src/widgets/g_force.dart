@@ -11,6 +11,18 @@ class GForce extends StatefulWidget {
 class _GForceState extends State<GForce> {
 
   @override
+  void initState() {
+    super.initState();
+    // userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+    //   setState(() {
+    //     _userAccelerometerEvent = event;
+    //   });
+    // });
+  }
+
+  UserAccelerometerEvent? _userAccelerometerEvent;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -33,8 +45,8 @@ class _GForceState extends State<GForce> {
             ),
           ),
           Positioned(
-              top: 120.5,
-              left: 120.5,
+              top: 120.5 + _userAccelerometerEvent!.y * 100,
+              left: 120.5 + _userAccelerometerEvent!.x * 100,
               child: Icon(
                 Icons.radio_button_checked,
                 color: Colors.red,
