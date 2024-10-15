@@ -13,11 +13,11 @@ class _GForceState extends State<GForce> {
   @override
   void initState() {
     super.initState();
-    // userAccelerometerEvents.listen((UserAccelerometerEvent event) {
-    //   setState(() {
-    //     _userAccelerometerEvent = event;
-    //   });
-    // });
+    userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+      setState(() {
+        _userAccelerometerEvent = event;
+      });
+    });
   }
 
   UserAccelerometerEvent? _userAccelerometerEvent;
@@ -45,8 +45,10 @@ class _GForceState extends State<GForce> {
             ),
           ),
           Positioned(
-              top: 120.5 + _userAccelerometerEvent!.y * 100,
-              left: 120.5 + _userAccelerometerEvent!.x * 100,
+              // Position the top based on the z axis, ie. the back and face of the phone
+              top: 120.5 + (_userAccelerometerEvent!.z * 10),
+              // Position the left based on the y axis, ie. the left and right of the phone when in landscape mode
+              left: 120.5 + (_userAccelerometerEvent!.y * 10),
               child: Icon(
                 Icons.radio_button_checked,
                 color: Colors.red,
