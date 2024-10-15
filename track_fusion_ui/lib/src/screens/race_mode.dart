@@ -4,6 +4,7 @@ import '../widgets/custom_app_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../widgets/g_force.dart';
+// import 'package:geolocator/geolocator.dart';
 
 class RaceMode extends StatefulWidget {
   static const routeName = '/racemode';
@@ -13,6 +14,8 @@ class RaceMode extends StatefulWidget {
 }
 
 class _RaceState extends State<RaceMode> {
+  double _speed = 0;
+
   @override
   void initState() {
     super.initState();
@@ -21,6 +24,11 @@ class _RaceState extends State<RaceMode> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
+    // Geolocator.getPositionStream().listen((position) {
+    //   setState(() {
+    //     _speed = position.speed;// This is your speed
+    //   });
+    // });
   }
 
   @override
@@ -61,7 +69,7 @@ class _RaceState extends State<RaceMode> {
                         startWidth: 10,
                         endWidth: 10)
                   ], pointers: <GaugePointer>[
-                    NeedlePointer(value: 90)
+                    NeedlePointer(value: _speed)
                   ], annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Container(

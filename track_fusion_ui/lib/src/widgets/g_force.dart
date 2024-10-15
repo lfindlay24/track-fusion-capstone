@@ -13,11 +13,15 @@ class _GForceState extends State<GForce> {
   @override
   void initState() {
     super.initState();
-    userAccelerometerEvents.listen((UserAccelerometerEvent event) {
-      setState(() {
-        _userAccelerometerEvent = event;
-      });
-    });
+    userAccelerometerEventStream(
+      samplingPeriod: const Duration(milliseconds: 32),
+    ).listen(
+      (UserAccelerometerEvent event) {
+        setState(() {
+          _userAccelerometerEvent = event;
+        });
+      },
+    );
   }
 
   UserAccelerometerEvent? _userAccelerometerEvent;
@@ -39,17 +43,17 @@ class _GForceState extends State<GForce> {
       ),
       child: Stack(
         children: [
-          Center(
+          const Center(
             child: Image(
               image: AssetImage('assets/images/g_force_icon.png'),
             ),
           ),
           Positioned(
               // Position the top based on the z axis, ie. the back and face of the phone
-              top: 120.5 + (_userAccelerometerEvent!.z * 10),
+              top: 120.5 + -(_userAccelerometerEvent!.z * 10),
               // Position the left based on the y axis, ie. the left and right of the phone when in landscape mode
               left: 120.5 + (_userAccelerometerEvent!.y * 10),
-              child: Icon(
+              child: const Icon(
                 Icons.radio_button_checked,
                 color: Colors.red,
               )),
