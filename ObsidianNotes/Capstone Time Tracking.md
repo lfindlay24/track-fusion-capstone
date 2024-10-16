@@ -54,3 +54,5 @@ Week 3
 | Monday 10/14  | 3:00-3:45  | 45             | G-force widget looks proper just need to link up accelerometer.                      |
 | Tuesday 10/15 | 8:00-9:00  | 60             | Bug fixing a flutter plugin                                                          |
 | Tuesday 10/15 | 12:00-1:30 | 90             | Getting values from accelerometer and fixed flutter plugin not working on my laptop. |
+| Tuesday 10/15 | 6:00-6:30  | 30             | Got Started on the google maps widget                                                |
+|               |            |                |                                                                                      |

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../widgets/g_force.dart';
 // import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RaceMode extends StatefulWidget {
   static const routeName = '/racemode';
