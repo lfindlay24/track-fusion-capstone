@@ -55,3 +55,4 @@ Week 3
 | Tuesday 10/15 | 8:00-9:00  | 60             | Bug fixing a flutter plugin                                                          |
 | Tuesday 10/15 | 12:00-1:30 | 90             | Getting values from accelerometer and fixed flutter plugin not working on my laptop. |
 | Tuesday 10/15 | 2:00-4:00  | 120            | Working on speedometer widget/getting location permissions from user                 |
+| Tuesday 10/15 | 6:00-6:30  | 30             | Got Started on the google maps widget                                                |
