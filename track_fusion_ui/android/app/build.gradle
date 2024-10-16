@@ -3,6 +3,7 @@ plugins {
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+    //id "com.github.gmazzo.flutter-config"
 }
 
 def localProperties = new Properties()
@@ -23,6 +24,9 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+def googleMapsApiKey = localProperties.getProperty('GOOGLE_MAPS_API_KEY') ?: ""
+
+
 android {
     namespace = "com.example.track_fusion_ui"
     compileSdk = flutter.compileSdkVersion
@@ -42,6 +46,7 @@ android {
         targetSdk = 34
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+        resValue "string", "YOUR_GOOGLE_MAPS_API_KEY", googleMapsApiKey
     }
 
     buildTypes {

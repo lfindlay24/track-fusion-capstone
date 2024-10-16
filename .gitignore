@@ -2,3 +2,9 @@
 ObsidianNotes/.obsidian/workspace.json
 
 */node_modules/*
+
+*/.obsidian/*
+
+*/.env/*
+environment_variables.env
+.env
