@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:track_fusion_ui/globals.dart' as globals;
 import '../widgets/custom_app_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../widgets/g_force.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 
 class RaceMode extends StatefulWidget {
   static const routeName = '/racemode';
@@ -16,19 +17,27 @@ class RaceMode extends StatefulWidget {
 class _RaceState extends State<RaceMode> {
   double _speed = 0;
 
+  LocationPermission permission = LocationPermission.denied;
+
   @override
   void initState() {
     super.initState();
+
     //Enforce landscape mode while in this page
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    // Geolocator.getPositionStream().listen((position) {
-    //   setState(() {
-    //     _speed = position.speed;// This is your speed
-    //   });
-    // });
+    Geolocator.getPositionStream().listen((position) {
+      debugPrint("New Speed${position.speed}");
+      setState(() {
+        _speed = double.parse(position.speed.toStringAsFixed(2));// This is your speed
+      });
+    });
+  }
+
+  void getGeolocatorPermission() async {
+    permission = await Geolocator.requestPermission();
   }
 
   @override
@@ -73,8 +82,8 @@ class _RaceState extends State<RaceMode> {
                   ], annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Container(
-                            child: const Text('90.0',
-                                style: TextStyle(
+                            child: Text('MPH\n$_speed',
+                                style:const TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold))),
                         angle: 90,
