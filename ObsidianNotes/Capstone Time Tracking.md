@@ -58,3 +58,4 @@ Week 3
 | Tuesday 10/15   | 6:00-6:30  | 30             | Got Started on the google maps widget                                                |
 | Wednesday 10/16 | 8:00-11:00 | 180            | Got google maps working in my app, working on refining the page now.                 |
 | Wednesday 10/16 | 7:00-8:30  | 90             | Worked on the maps widget and getting location of user                               |
+| Thursday 10/17  | 9:00-11:00 | 120            | Worked on refining the race mode page, user can scale the widgets to their liking.   |
