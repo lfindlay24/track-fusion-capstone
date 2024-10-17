@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../widgets/g_force.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../widgets/race_track_selector.dart';
 
 class RaceMode extends StatefulWidget {
   static const routeName = '/racemode';
@@ -20,6 +21,9 @@ class _RaceState extends State<RaceMode> {
   //     GoogleMapController();
 
   double _speed = 0;
+
+  double _lat = 0;
+  double _long = 0;
 
   LocationPermission permission = LocationPermission.denied;
 
@@ -37,9 +41,20 @@ class _RaceState extends State<RaceMode> {
       accuracy: LocationAccuracy.high,
       // distanceFilter: 100,
     );
+
+    initPosition().then((value) {
+      setState(() {
+        _lat = value.latitude;
+        _long = value.longitude;
+      });
+    });
+
     Geolocator.getPositionStream(locationSettings: locationSettings).listen((position) {
       debugPrint("New Speed${position.speed}");
+
       setState(() {
+        _lat = position.latitude;
+        _long = position.longitude;
         _speed = double.parse(
             (position.speed * 2.23694).toStringAsFixed(1)); // 2.23694 m/s to mph
       });
@@ -50,9 +65,15 @@ class _RaceState extends State<RaceMode> {
     permission = await Geolocator.requestPermission();
   }
 
+  Future<Position> initPosition() async {
+    Position position = await Geolocator.getCurrentPosition();
+    return position;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: RaceTrackSelector(),
       // appBar: CustomAppBar(
       //   title: "Race Mode",
       // ),rr
@@ -114,16 +135,19 @@ class _RaceState extends State<RaceMode> {
             ),
           ),
           Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 10),
-              margin: EdgeInsets.only(left: 10, right: 10),
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(37.42796133580664, -122.085749655962),
-                  zoom: 14.4746,
-                ),
-              ),
-            ),
+            child: _lat != 0 && _long != 0
+                ? Container(
+                    padding: EdgeInsets.only(top: 10),
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    child: GoogleMap(
+                      mapType: MapType.satellite,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(_lat, _long),
+                        zoom: 14.4746,
+                      ),
+                    ),
+                  )
+                : Container(),
           ),
         ],
       ),
