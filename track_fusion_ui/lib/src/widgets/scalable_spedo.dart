@@ -1,6 +1,7 @@
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:track_fusion_ui/globals.dart' as globals;
 
 class ScalableSpedo extends StatefulWidget {
 
@@ -39,11 +40,11 @@ class _ScalableSpedoState extends State<ScalableSpedo> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onScaleStart: (details) {
+      onScaleStart: globals.isRaceModeLocked ? null : (details) {
         _previousScale = _scale;
         _previousPosition = details.focalPoint - _position;
       },
-      onScaleUpdate: (details) {
+      onScaleUpdate: globals.isRaceModeLocked ? null : (details) {
         setState(() {
           // Scale the widget
           _scale = _previousScale * details.scale;
@@ -52,7 +53,7 @@ class _ScalableSpedoState extends State<ScalableSpedo> {
           _position = details.focalPoint - _previousPosition;
         });
       },
-      onScaleEnd: (details) {
+      onScaleEnd: globals.isRaceModeLocked ? null : (details) {
         _previousScale = _scale;
       },
       child: Stack(

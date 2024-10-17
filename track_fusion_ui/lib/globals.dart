@@ -10,3 +10,5 @@ String apiBasePath =
 String? saltAndHashPassword(String password) {
   return Crypt.sha256(password).toString();
 }
+
+bool isRaceModeLocked = false;

@@ -46,16 +46,17 @@ Week 2
 
 Week 3
 
-| Day             | Time       | Minutes Worked | Worked On                                                                            |
-| --------------- | ---------- | -------------- | ------------------------------------------------------------------------------------ |
-| Sunday 10/13    | 4:15-5:15  | 60             | Messages successfully being saved working on retrieving messages.                    |
-| Monday 10/14    | 8:00-10:00 | 120            | Got started on the race mode UI                                                      |
-| Monday 10/14    | 12:45-1:15 | 30             | Got started on the g-force widget.                                                   |
-| Monday 10/14    | 3:00-3:45  | 45             | G-force widget looks proper just need to link up accelerometer.                      |
-| Tuesday 10/15   | 8:00-9:00  | 60             | Bug fixing a flutter plugin                                                          |
-| Tuesday 10/15   | 12:00-1:30 | 90             | Getting values from accelerometer and fixed flutter plugin not working on my laptop. |
-| Tuesday 10/15   | 2:00-4:00  | 120            | Working on speedometer widget/getting location permissions from user                 |
-| Tuesday 10/15   | 6:00-6:30  | 30             | Got Started on the google maps widget                                                |
-| Wednesday 10/16 | 8:00-11:00 | 180            | Got google maps working in my app, working on refining the page now.                 |
-| Wednesday 10/16 | 7:00-8:30  | 90             | Worked on the maps widget and getting location of user                               |
-| Thursday 10/17  | 9:00-11:00 | 120            | Worked on refining the race mode page, user can scale the widgets to their liking.   |
+| Day             | Time       | Minutes Worked | Worked On                                                                                             |
+| --------------- | ---------- | -------------- | ----------------------------------------------------------------------------------------------------- |
+| Sunday 10/13    | 4:15-5:15  | 60             | Messages successfully being saved working on retrieving messages.                                     |
+| Monday 10/14    | 8:00-10:00 | 120            | Got started on the race mode UI                                                                       |
+| Monday 10/14    | 12:45-1:15 | 30             | Got started on the g-force widget.                                                                    |
+| Monday 10/14    | 3:00-3:45  | 45             | G-force widget looks proper just need to link up accelerometer.                                       |
+| Tuesday 10/15   | 8:00-9:00  | 60             | Bug fixing a flutter plugin                                                                           |
+| Tuesday 10/15   | 12:00-1:30 | 90             | Getting values from accelerometer and fixed flutter plugin not working on my laptop.                  |
+| Tuesday 10/15   | 2:00-4:00  | 120            | Working on speedometer widget/getting location permissions from user                                  |
+| Tuesday 10/15   | 6:00-6:30  | 30             | Got Started on the google maps widget                                                                 |
+| Wednesday 10/16 | 8:00-11:00 | 180            | Got google maps working in my app, working on refining the page now.                                  |
+| Wednesday 10/16 | 7:00-8:30  | 90             | Worked on the maps widget and getting location of user                                                |
+| Thursday 10/17  | 9:00-11:00 | 120            | Worked on refining the race mode page, user can scale the widgets to their liking.                    |
+| Thursday 10/17  | 2:00-4:00  | 120            | Further refined scaling of widgets including the map, started on a list of racetracks to select from. |

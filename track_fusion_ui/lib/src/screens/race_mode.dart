@@ -25,8 +25,7 @@ class _RaceState extends State<RaceMode> {
   double _speed = 0;
   Offset position = Offset(100, 100);
 
-  double _lat = 0;
-  double _long = 0;
+  RaceTrack? selectedTrack;
 
   LocationPermission permission = LocationPermission.denied;
 
@@ -45,21 +44,14 @@ class _RaceState extends State<RaceMode> {
       // distanceFilter: 100,
     );
 
-    initPosition().then((value) {
-      setState(() {
-        _lat = value.latitude;
-        _long = value.longitude;
-      });
-    });
 
-    Geolocator.getPositionStream(locationSettings: locationSettings).listen((position) {
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((position) {
       debugPrint("New Speed${position.speed}");
 
       setState(() {
-        _lat = position.latitude;
-        _long = position.longitude;
-        _speed = double.parse(
-            (position.speed * 2.23694).toStringAsFixed(1)); // 2.23694 m/s to mph
+        _speed = double.parse((position.speed * 2.23694)
+            .toStringAsFixed(1)); // 2.23694 m/s to mph
       });
     });
   }
@@ -76,92 +68,45 @@ class _RaceState extends State<RaceMode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: RaceTrackSelector(),
+      drawer: RaceTrackSelector(
+        onTrackSelected: (track) {
+          setState(() {
+            selectedTrack = track;
+          });
+        },
+      ),
       // appBar: CustomAppBar(
       //   title: "Race Mode",
       // ),rr
       body: Stack(
         children: [
+          Builder(
+            builder: (context) => Positioned(
+              top: 0,
+              left: 0,
+              child: IconButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: const Icon(Icons.menu),
+              ),
+            ),
+          ),
           ScalableSpedo(),
           //Default Position sets around the top right corner of the screen no matter the screen size
-          GForce(width: 150, height: 150, defaultPosition: Offset(MediaQuery.sizeOf(context).width * 4/5, MediaQuery.sizeOf(context).height * 1/10)),
-          ScalableMap(),
+          GForce(
+              width: 150,
+              height: 150,
+              defaultPosition: Offset(MediaQuery.sizeOf(context).width * 4 / 5,
+                  MediaQuery.sizeOf(context).height * 1 / 10)),
+          ScalableMap(
+            width: 150,
+            height: 150,
+            defaultPosition: Offset(MediaQuery.sizeOf(context).width * 1 / 10,
+                MediaQuery.sizeOf(context).height * 1 / 10),
+            lat: (selectedTrack != null) ? selectedTrack!.lat : 0.0,
+            long: (selectedTrack != null) ? selectedTrack!.long : 0.0,
+          ),
         ],
       ),
-      // body: Column(
-      //   children: [
-      //     Expanded(
-      //       child: Row(
-      //         children: [
-      //           Container(
-      //             padding: EdgeInsets.all(10),
-      //             child: SfRadialGauge(
-      //               title: GaugeTitle(
-      //                   text: 'Speedometer',
-      //                   textStyle: const TextStyle(
-      //                       fontSize: 20.0, fontWeight: FontWeight.bold)),
-      //               axes: <RadialAxis>[
-      //                 RadialAxis(minimum: 0, maximum: 150, ranges: <GaugeRange>[
-      //                   GaugeRange(
-      //                       startValue: 0,
-      //                       endValue: 50,
-      //                       color: Colors.green,
-      //                       startWidth: 10,
-      //                       endWidth: 10),
-      //                   GaugeRange(
-      //                       startValue: 50,
-      //                       endValue: 100,
-      //                       color: Colors.orange,
-      //                       startWidth: 10,
-      //                       endWidth: 10),
-      //                   GaugeRange(
-      //                       startValue: 100,
-      //                       endValue: 150,
-      //                       color: Colors.red,
-      //                       startWidth: 10,
-      //                       endWidth: 10)
-      //                 ], pointers: <GaugePointer>[
-      //                   NeedlePointer(value: _speed)
-      //                 ], annotations: <GaugeAnnotation>[
-      //                   GaugeAnnotation(
-      //                       widget: Container(
-      //                           child: Text('MPH\n$_speed',
-      //                               style: const TextStyle(
-      //                                   fontSize: 25,
-      //                                   fontWeight: FontWeight.bold))),
-      //                       angle: 90,
-      //                       positionFactor: 0.5)
-      //                 ])
-      //               ],
-      //             ),
-      //           ),
-      //           Container(
-      //             padding: const EdgeInsets.only(top: 20),
-      //             child: GForce(
-      //               width: 150,
-      //               height: 150,
-      //             ),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //     Expanded(
-      //       child: _lat != 0 && _long != 0
-      //           ? Container(
-      //               padding: EdgeInsets.only(top: 10),
-      //               margin: EdgeInsets.only(left: 10, right: 10),
-      //               child: GoogleMap(
-      //                 mapType: MapType.satellite,
-      //                 initialCameraPosition: CameraPosition(
-      //                   target: LatLng(_lat, _long),
-      //                   zoom: 14.4746,
-      //                 ),
-      //               ),
-      //             )
-      //           : Container(),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class RaceTrackSelector extends StatefulWidget {
+
+  Function onTrackSelected;
+
+  RaceTrackSelector({required this.onTrackSelected});
+
   @override
   State<StatefulWidget> createState() {
     return _RaceTrackSelectorState();
@@ -34,6 +39,7 @@ class _RaceTrackSelectorState extends State<RaceTrackSelector> {
           onTap: () {
             setState(() {
             selectedTrack = track;
+            widget.onTrackSelected(selectedTrack);
             });
             Navigator.pop(context); // Close the drawer
           },

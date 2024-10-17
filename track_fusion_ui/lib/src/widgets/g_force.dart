@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:track_fusion_ui/globals.dart' as globals;
 
 class GForce extends StatefulWidget {
-
   final double width;
   final double height;
 
   final Offset defaultPosition;
 
-  GForce({required this.width, required this.height, required this.defaultPosition});
+  GForce(
+      {required this.width,
+      required this.height,
+      required this.defaultPosition});
 
   @override
   State<StatefulWidget> createState() {
@@ -32,9 +35,11 @@ class _GForceState extends State<GForce> {
       samplingPeriod: const Duration(milliseconds: 32),
     ).listen(
       (UserAccelerometerEvent event) {
-        setState(() {
-          _userAccelerometerEvent = event;
-        });
+        if (mounted) {
+          setState(() {
+            _userAccelerometerEvent = event;
+          });
+        }
       },
     );
   }
@@ -44,22 +49,28 @@ class _GForceState extends State<GForce> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onScaleStart: (details) {
-        _previousScale = _scale;
-        _previousPosition = details.focalPoint - _position;
-      },
-      onScaleUpdate: (details) {
-        setState(() {
-          // Scale the widget
-          _scale = _previousScale * details.scale;
+      onScaleStart: globals.isRaceModeLocked
+          ? null
+          : (details) {
+              _previousScale = _scale;
+              _previousPosition = details.focalPoint - _position;
+            },
+      onScaleUpdate: globals.isRaceModeLocked
+          ? null
+          : (details) {
+              setState(() {
+                // Scale the widget
+                _scale = _previousScale * details.scale;
 
-          // Update the position to allow movement
-          _position = details.focalPoint - _previousPosition;
-        });
-      },
-      onScaleEnd: (details) {
-        _previousScale = _scale;
-      },
+                // Update the position to allow movement
+                _position = details.focalPoint - _previousPosition;
+              });
+            },
+      onScaleEnd: globals.isRaceModeLocked
+          ? null
+          : (details) {
+              _previousScale = _scale;
+            },
       child: Stack(
         children: [
           Positioned(
@@ -68,40 +79,44 @@ class _GForceState extends State<GForce> {
             child: Transform.scale(
               scale: _scale,
               child: Container(
-              width: widget.width,
-              height: widget.height,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Stack(
-                children: [
-                  const Center(
-                    child: Image(
-                      width: 300,
-                      height: 300,
-                      image: AssetImage('assets/images/g_force_icon.png'),
+                width: widget.width,
+                height: widget.height,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
                     ),
-                  ),
-                  Positioned(
-                      // Position the top based on the z axis, ie. the back and face of the phone
-                        top: (widget.height / 2) + -(_userAccelerometerEvent!.z * 10) - 12.5, // 12.5 is half the height of the icon
-                        left: (widget.width / 2) + (_userAccelerometerEvent!.y * 10) - 12.5, // 12.5 is half the width of the icon
-                      child: const Icon(
-                        Icons.radio_button_checked,
-                        color: Colors.red,
-                      )),
-                ],
-              ),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    const Center(
+                      child: Image(
+                        width: 300,
+                        height: 300,
+                        image: AssetImage('assets/images/g_force_icon.png'),
                       ),
+                    ),
+                    Positioned(
+                        // Position the top based on the z axis, ie. the back and face of the phone
+                        top: (widget.height / 2) +
+                            -(_userAccelerometerEvent!.z * 10) -
+                            12.5, // 12.5 is half the height of the icon
+                        left: (widget.width / 2) +
+                            (_userAccelerometerEvent!.y * 10) -
+                            12.5, // 12.5 is half the width of the icon
+                        child: const Icon(
+                          Icons.radio_button_checked,
+                          color: Colors.red,
+                        )),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
