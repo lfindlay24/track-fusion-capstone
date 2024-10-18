@@ -60,4 +60,9 @@ class RaceTrack {
   //final String image;
 
   RaceTrack({required this.name, required this.lat, required this.long});
+
+  @override
+  String toString() {
+    return 'RaceTrack{name: $name, lat: $lat, long: $long}';
+  }
 }

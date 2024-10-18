@@ -29,6 +29,8 @@ class _RaceState extends State<RaceMode> {
 
   LocationPermission permission = LocationPermission.denied;
 
+  GoogleMapController? controller;
+
   @override
   void initState() {
     super.initState();
@@ -65,6 +67,10 @@ class _RaceState extends State<RaceMode> {
     return position;
   }
 
+  Future<void> _goToRaceTrack(GoogleMapController controller) async {
+    // final GoogleMapController controller = await controller.future;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +78,7 @@ class _RaceState extends State<RaceMode> {
         onTrackSelected: (track) {
           setState(() {
             selectedTrack = track;
+            debugPrint("New Track: ${selectedTrack.toString()}");
           });
         },
       ),
@@ -104,6 +111,7 @@ class _RaceState extends State<RaceMode> {
                 MediaQuery.sizeOf(context).height * 1 / 10),
             lat: (selectedTrack != null) ? selectedTrack!.lat : 0.0,
             long: (selectedTrack != null) ? selectedTrack!.long : 0.0,
+            controller: controller,
           ),
         ],
       ),

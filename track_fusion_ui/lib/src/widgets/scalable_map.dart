@@ -9,13 +9,14 @@ class ScalableMap extends StatefulWidget {
 
   final double width;
   final double height;
+  GoogleMapController? controller;
 
   final Offset defaultPosition;
 
   double lat;
   double long;
 
-  ScalableMap({required this.width, required this.height, required this.defaultPosition, this.lat = 0, this.long = 0});
+  ScalableMap({required this.width, required this.height, required this.defaultPosition, required this.controller , this.lat = 0, this.long = 0});
 
   @override
   State<StatefulWidget> createState() {
@@ -94,6 +95,9 @@ class _ScalableMapState extends State<ScalableMap> {
                 maxHeight: double.infinity,
                 maxWidth: double.infinity,
                 child: GoogleMap(
+                onMapCreated: (GoogleMapController controller) {
+                  widget.controller = controller;
+                },
                 mapType: MapType.satellite,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(_lat, _long),
