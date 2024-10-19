@@ -60,4 +60,5 @@ Week 3
 | Wednesday 10/16 | 7:00-8:30   | 90             | Worked on the maps widget and getting location of user                                                |
 | Thursday 10/17  | 9:00-11:00  | 120            | Worked on refining the race mode page, user can scale the widgets to their liking.                    |
 | Thursday 10/17  | 2:00-4:00   | 120            | Further refined scaling of widgets including the map, started on a list of racetracks to select from. |
-| Friday          | 11:00-11:30 | 30             | Worked on track presets actually moving the map.                                                      |
+| Friday 10/18    | 11:00-11:30 | 30             | Worked on track presets actually moving the map.                                                      |
+| Saturday 10/19  | 2:45-4:15   | 90             | Worked on refining the race mode feature.                                                             |

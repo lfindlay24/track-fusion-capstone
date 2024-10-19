@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:track_fusion_ui/globals.dart' as globals;
-import '../widgets/custom_app_bar.dart';
 import 'package:flutter/services.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../widgets/g_force.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -41,9 +37,10 @@ class _RaceState extends State<RaceMode> {
       DeviceOrientation.landscapeLeft,
     ]);
 
-    final LocationSettings locationSettings = LocationSettings(
+    const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.high,
-      // distanceFilter: 100,
+      distanceFilter: 0,
+      timeLimit: Duration(seconds: 10),
     );
 
 
@@ -97,7 +94,12 @@ class _RaceState extends State<RaceMode> {
               ),
             ),
           ),
-          ScalableSpedo(),
+            ScalableSpedo(
+            defaultPosition: Offset(
+              MediaQuery.sizeOf(context).width * 1 / 20,
+              MediaQuery.sizeOf(context).height * 1 / 20,
+            ),
+            ),
           //Default Position sets around the top right corner of the screen no matter the screen size
           GForce(
               width: 150,
@@ -107,8 +109,8 @@ class _RaceState extends State<RaceMode> {
           ScalableMap(
             width: 150,
             height: 150,
-            defaultPosition: Offset(MediaQuery.sizeOf(context).width * 1 / 10,
-                MediaQuery.sizeOf(context).height * 1 / 10),
+            defaultPosition: Offset(MediaQuery.sizeOf(context).width * 5 / 10,
+                MediaQuery.sizeOf(context).height * 5 / 10),
             lat: (selectedTrack != null) ? selectedTrack!.lat : 0.0,
             long: (selectedTrack != null) ? selectedTrack!.long : 0.0,
             controller: controller,

@@ -5,6 +5,10 @@ import 'package:track_fusion_ui/globals.dart' as globals;
 
 class ScalableSpedo extends StatefulWidget {
 
+  final Offset defaultPosition;
+
+  const ScalableSpedo({super.key, required this.defaultPosition});
+
   @override
   State<StatefulWidget> createState() {
     return _ScalableSpedoState();
@@ -12,7 +16,7 @@ class ScalableSpedo extends StatefulWidget {
 }
 
 class _ScalableSpedoState extends State<ScalableSpedo> {
-  double _scale = 1.0;
+  double _scale = 0.5;
   double _previousScale = 1.0;
   Offset _position = const Offset(100, 100);
   Offset _previousPosition = const Offset(100, 100);
@@ -21,6 +25,8 @@ class _ScalableSpedoState extends State<ScalableSpedo> {
   @override
   void initState() {
     super.initState();
+
+    _position = widget.defaultPosition;
 
     const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.high,
