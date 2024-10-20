@@ -105,10 +105,12 @@ class _GForceState extends State<GForce> {
                     Positioned(
                         // Position the top based on the z axis, ie. the back and face of the phone
                         top: (widget.height / 2) +
-                            -(_userAccelerometerEvent!.z * 10) -
+                        //If my math is right, this should be the correct formula to calculate the position of the icon
+                        //For every g or 9.8 m/s^2, the icon should move 1/6th of the height of the widget
+                            -((_userAccelerometerEvent!.z / 9.8) * (widget.height / 6)) -
                             12.5, // 12.5 is half the height of the icon
                         left: (widget.width / 2) +
-                            (_userAccelerometerEvent!.y * 10) -
+                            ((_userAccelerometerEvent!.y / 9.8) * (widget.width / 6)) -
                             12.5, // 12.5 is half the width of the icon
                         child: const Icon(
                           Icons.radio_button_checked,

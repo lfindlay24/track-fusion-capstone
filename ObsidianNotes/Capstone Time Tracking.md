@@ -62,3 +62,4 @@ Week 3
 | Thursday 10/17  | 2:00-4:00   | 120            | Further refined scaling of widgets including the map, started on a list of racetracks to select from. |
 | Friday 10/18    | 11:00-11:30 | 30             | Worked on track presets actually moving the map.                                                      |
 | Saturday 10/19  | 2:45-4:15   | 90             | Worked on refining the race mode feature.                                                             |
+| Sunday 10/20    | 4:10-4:40   | 30             | Made it so the G-force tracker actually displays the correct "G's"                                    |
