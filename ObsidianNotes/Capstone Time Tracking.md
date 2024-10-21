@@ -71,3 +71,4 @@ Week 4
 | Sunday 10/13 | 5:20-5:40  | 20             | Fixed rotation permissions on mobile                      |
 | Sunday 10/13 | 6:00-6:30  | 30             | Trying to fix the race track selector.                    |
 | Monday 10/21 | 8:00-10:30 | 150            | Creating new API endpoints for race mode metric tracking. |
+| Monday 10/21 | 12:30-1:30 | 60             | Got started on adding the recording feature to race mode. |
