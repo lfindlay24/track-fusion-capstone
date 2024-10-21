@@ -66,7 +66,8 @@ Week 3
 |                 |             |                |                                                                                                       |
 Week 4
 
-| Day          | Time      | Minutes Worked | Worked On                              |
-| ------------ | --------- | -------------- | -------------------------------------- |
-| Sunday 10/13 | 5:20-5:40 | 20             | Fixed rotation permissions on mobile   |
-| Sunday 10/13 | 6:00-6:30 | 30             | Trying to fix the race track selector. |
+| Day          | Time       | Minutes Worked | Worked On                                                 |
+| ------------ | ---------- | -------------- | --------------------------------------------------------- |
+| Sunday 10/13 | 5:20-5:40  | 20             | Fixed rotation permissions on mobile                      |
+| Sunday 10/13 | 6:00-6:30  | 30             | Trying to fix the race track selector.                    |
+| Monday 10/21 | 8:00-10:30 | 150            | Creating new API endpoints for race mode metric tracking. |

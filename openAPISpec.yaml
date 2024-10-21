@@ -338,6 +338,67 @@ paths:
           description: "Login successful"
         401:
           description: "Invalid credentials"
+  /raceData:
+    post:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/uploadRaceDataFunction
+      summary: "Upload an instance of race data to the database"
+      description: "Uploads an instance"
+      operationId: "uploadRaceData"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "The race data to be uploaded"
+          required: true
+          schema:
+            $ref: "#/definitions/RaceModeData"
+      responses:
+        201:
+          description: "Succussfully uploaded"
+        400:
+          description: "Invalid input"
+  /raceData/{userId}:
+    get:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/getRaceDataFunction
+      summary: "Retrieve all race data from a specific user"
+      description: "Returns the race data for a specific user."
+      operationId: "getRaceData"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to retrieve"
+      responses:
+        200:
+          description: "Got all Race Data Instances"
+        404:
+          description: "User not found"
+  /raceData/{userId}/{raceId}:
+    delete:
+      x-google-backend:
+        address: https://us-central1-utahjazz24.cloudfunctions.net/deleteRaceDataFunction
+      summary: "Delete"
+      description: "Deletes the specified race data."
+      operationId: "deleteRaceData"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the user to delete"
+        - name: "raceId"
+          in: "path"
+          required: true
+          type: "string"
+          description: "ID of the race data to delete"
+      responses:
+        204:
+          description: "Successfully deleted"
+        404:
+          description: "User not found"
+
 
 definitions:
   Message:
@@ -403,7 +464,7 @@ definitions:
       - "raceTime"
       - "raceDistance"
       - "raceLocation"
-      - "dataFile"
+      - "recordingEvents"
     properties:
       userId:
         type: "string"
@@ -419,7 +480,49 @@ definitions:
       raceLocation:
         type: "string"
         description: "Location where the race took place"
-      dataFile:
+      recordingEvents:
+        type: "array"
+        items:
+          $ref: "#/definitions/RaceRecordingEvent"
+        description: "List of recordings"
+  RaceRecordingEvent:
+    type: "object"
+    required:
+      - "speed"
+      - "gForce"
+      - "lat"
+      - "long"
+      - "time"
+    properties:
+      speed:
+        type: "number"
+        format: "float"
+        description: "Speed of the recording event"
+      gForce:
+        type: "object"
+        description: "User accelerometer event data"
+        properties:
+          x:
+            type: "number"
+            format: "float"
+            description: "Acceleration force along the X axis"
+          y:
+            type: "number"
+            format: "float"
+            description: "Acceleration force along the Y axis"
+          z:
+            type: "number"
+            format: "float"
+            description: "Acceleration force along the Z axis"
+      lat:
+        type: "number"
+        format: "float"
+        description: "Latitude of the recording event"
+      long:
+        type: "number"
+        format: "float"
+        description: "Longitude of the recording event"
+      time:
         type: "string"
-        format: "binary"
-        description: "File containing race data"
+        format: "date-time"
+        description: "Time when the recording event occurred"

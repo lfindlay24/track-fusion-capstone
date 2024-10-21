@@ -1,6 +1,7 @@
 library track_fusion_ui.globals;
 
 import 'package:crypt/crypt.dart';
+import 'package:track_fusion_ui/src/models/recording_event.dart';
 
 String userId = '';
 
@@ -12,3 +13,5 @@ String? saltAndHashPassword(String password) {
 }
 
 bool isRaceModeLocked = false;
+
+List<RecordingEvent> recordingEvents = [];

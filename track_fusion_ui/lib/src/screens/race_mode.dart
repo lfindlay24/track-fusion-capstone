@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../widgets/race_track_selector.dart';
 import '../widgets/scalable_spedo.dart';
 import '../widgets/scalable_map.dart';
+import 'package:track_fusion_ui/globals.dart' as globals;
+import '../models/recording_event.dart';
 
 class RaceMode extends StatefulWidget {
   static const routeName = '/racemode';
@@ -19,6 +21,7 @@ class _RaceState extends State<RaceMode> {
   //     GoogleMapController();
 
   double _speed = 0;
+  Position? userPostion;
   Offset position = Offset(100, 100);
 
   RaceTrack? selectedTrack;
@@ -26,6 +29,8 @@ class _RaceState extends State<RaceMode> {
   LocationPermission permission = LocationPermission.denied;
 
   GoogleMapController? controller;
+
+  bool isRecording = false;
 
   @override
   void initState() {
@@ -48,6 +53,7 @@ class _RaceState extends State<RaceMode> {
       debugPrint("New Speed${position.speed}");
 
       setState(() {
+        userPostion = position;
         _speed = double.parse((position.speed * 2.23694)
             .toStringAsFixed(1)); // 2.23694 m/s to mph
       });
@@ -115,6 +121,30 @@ class _RaceState extends State<RaceMode> {
               ),
             ),
           ),
+          Builder(
+            builder: (context) => Positioned(
+              top: 15,
+              right: 15,
+              child: IconButton(
+                onPressed: () {
+
+                  if (globals.userId == '') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Please sign in to record'),
+                      ),
+                    );
+                    return;
+                  }
+
+                  setState(() {
+                    isRecording = !isRecording;
+                  });
+                },
+                icon: isRecording ? const Icon(Icons.stop) : const Icon(Icons.circle, color: Colors.red),
+              ),
+            ),
+          ),
           ScalableSpedo(
             defaultPosition: Offset(
               MediaQuery.sizeOf(context).width * 1 / 20,
@@ -123,6 +153,17 @@ class _RaceState extends State<RaceMode> {
           ),
           //Default Position sets around the top right corner of the screen no matter the screen size
           GForce(
+              onGForceChange: (event) {
+                 if (isRecording) {
+                  // Save the event
+                  globals.recordingEvents.add(RecordingEvent(
+                    speed: _speed,
+                    gForce: event,
+                    lat: (userPostion != null) ? userPostion!.latitude : 0.0,
+                    long: (userPostion != null) ? userPostion!.longitude : 0.0,
+                  ));
+                 }
+              },
               width: 150,
               height: 150,
               defaultPosition: Offset(MediaQuery.sizeOf(context).width * 4 / 5,

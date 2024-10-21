@@ -7,11 +7,13 @@ class GForce extends StatefulWidget {
   final double height;
 
   final Offset defaultPosition;
+  final Function onGForceChange;
 
   GForce(
       {required this.width,
       required this.height,
-      required this.defaultPosition});
+      required this.defaultPosition,
+      required this.onGForceChange});
 
   @override
   State<StatefulWidget> createState() {
@@ -36,6 +38,7 @@ class _GForceState extends State<GForce> {
     ).listen(
       (UserAccelerometerEvent event) {
         if (mounted) {
+          widget.onGForceChange(event);
           setState(() {
             _userAccelerometerEvent = event;
           });
