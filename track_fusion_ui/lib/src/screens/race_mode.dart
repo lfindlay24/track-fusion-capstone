@@ -8,6 +8,8 @@ import '../widgets/scalable_spedo.dart';
 import '../widgets/scalable_map.dart';
 import 'package:track_fusion_ui/globals.dart' as globals;
 import '../models/recording_event.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class RaceMode extends StatefulWidget {
   static const routeName = '/racemode';
@@ -136,6 +138,21 @@ class _RaceState extends State<RaceMode> {
                     );
                     return;
                   }
+                  if (isRecording) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Recording Stopped'),
+                      ),
+                    );
+                    
+                    saveRecording();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Recording Started'),
+                      ),
+                    );
+                  }
 
                   setState(() {
                     isRecording = !isRecording;
@@ -178,6 +195,26 @@ class _RaceState extends State<RaceMode> {
           ),
         ],
       ),
+    );
+  }
+  
+  void saveRecording() async {
+
+
+    var postBody = {
+      "userId": globals.userId,
+      "raceTime": DateTime.now,
+      "raceDistance": 15.5,
+      "raceLocation": "new Location",
+      "recordingEvents": globals.recordingEvents
+    };
+
+    final response = await http.post(
+      Uri.parse('${globals.apiBasePath}/users'),
+      body: json.encode(postBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     );
   }
 }
