@@ -203,14 +203,14 @@ class _RaceState extends State<RaceMode> {
 
     var postBody = {
       "userId": globals.userId,
-      "raceTime": DateTime.now,
+      "raceTime": DateTime.now().toIso8601String(),
       "raceDistance": 15.5,
       "raceLocation": "new Location",
       "recordingEvents": globals.recordingEvents
     };
 
     final response = await http.post(
-      Uri.parse('${globals.apiBasePath}/users'),
+      Uri.parse('${globals.apiBasePath}/raceData'),
       body: json.encode(postBody),
       headers: {
         'Content-Type': 'application/json',
