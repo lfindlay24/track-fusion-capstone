@@ -102,6 +102,9 @@ class _GForceState extends State<GForce> {
                         image: AssetImage('assets/images/g_force_icon.png'),
                       ),
                     ),
+                    _userAccelerometerEvent == null
+                        ? const SizedBox()
+                        :
                     Positioned(
                         // Position the top based on the z axis, ie. the back and face of the phone
                         top: (widget.height / 2) +

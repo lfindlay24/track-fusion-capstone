@@ -43,7 +43,6 @@ class _RaceState extends State<RaceMode> {
       timeLimit: Duration(seconds: 10),
     );
 
-
     Geolocator.getPositionStream(locationSettings: locationSettings)
         .listen((position) {
       debugPrint("New Speed${position.speed}");
@@ -53,6 +52,18 @@ class _RaceState extends State<RaceMode> {
             .toStringAsFixed(1)); // 2.23694 m/s to mph
       });
     });
+  }
+
+  @override
+  void dispose() {
+    // Unlock and allow free rotation
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    super.dispose();
   }
 
   void getGeolocatorPermission() async {
@@ -65,7 +76,16 @@ class _RaceState extends State<RaceMode> {
   }
 
   Future<void> _goToRaceTrack(GoogleMapController controller) async {
-    // final GoogleMapController controller = await controller.future;
+    if (selectedTrack != null) {
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(selectedTrack!.lat, selectedTrack!.long),
+            zoom: 15.0,
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -75,6 +95,7 @@ class _RaceState extends State<RaceMode> {
         onTrackSelected: (track) {
           setState(() {
             selectedTrack = track;
+            _goToRaceTrack(controller!);
             debugPrint("New Track: ${selectedTrack.toString()}");
           });
         },
@@ -86,20 +107,20 @@ class _RaceState extends State<RaceMode> {
         children: [
           Builder(
             builder: (context) => Positioned(
-              top: 0,
-              left: 0,
+              top: 15,
+              left: 15,
               child: IconButton(
                 onPressed: () => Scaffold.of(context).openDrawer(),
                 icon: const Icon(Icons.menu),
               ),
             ),
           ),
-            ScalableSpedo(
+          ScalableSpedo(
             defaultPosition: Offset(
               MediaQuery.sizeOf(context).width * 1 / 20,
               MediaQuery.sizeOf(context).height * 1 / 20,
             ),
-            ),
+          ),
           //Default Position sets around the top right corner of the screen no matter the screen size
           GForce(
               width: 150,
@@ -109,8 +130,7 @@ class _RaceState extends State<RaceMode> {
           ScalableMap(
             width: 150,
             height: 150,
-            defaultPosition: Offset(MediaQuery.sizeOf(context).width * 5 / 10,
-                MediaQuery.sizeOf(context).height * 5 / 10),
+            defaultPosition: const Offset(100, 100),
             lat: (selectedTrack != null) ? selectedTrack!.lat : 0.0,
             long: (selectedTrack != null) ? selectedTrack!.long : 0.0,
             controller: controller,

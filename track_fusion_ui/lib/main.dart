@@ -6,6 +6,7 @@ import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 import 'globals.dart' as globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   // Set up the SettingsController, which will glue user settings to multiple

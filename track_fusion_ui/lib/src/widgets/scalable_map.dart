@@ -11,7 +11,7 @@ class ScalableMap extends StatefulWidget {
   final double height;
   GoogleMapController? controller;
 
-  final Offset defaultPosition;
+  Offset defaultPosition;
 
   double lat;
   double long;

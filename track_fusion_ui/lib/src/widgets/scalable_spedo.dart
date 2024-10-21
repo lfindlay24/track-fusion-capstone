@@ -30,7 +30,8 @@ class _ScalableSpedoState extends State<ScalableSpedo> {
 
     const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.high,
-      // distanceFilter: 100,
+      timeLimit: Duration(seconds: 30),
+      distanceFilter: 0,
     );
 
     Geolocator.getPositionStream(locationSettings: locationSettings).listen((position) {

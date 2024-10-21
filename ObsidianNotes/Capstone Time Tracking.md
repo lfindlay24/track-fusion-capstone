@@ -63,3 +63,10 @@ Week 3
 | Friday 10/18    | 11:00-11:30 | 30             | Worked on track presets actually moving the map.                                                      |
 | Saturday 10/19  | 2:45-4:15   | 90             | Worked on refining the race mode feature.                                                             |
 | Sunday 10/20    | 4:10-4:40   | 30             | Made it so the G-force tracker actually displays the correct "G's"                                    |
+|                 |             |                |                                                                                                       |
+Week 4
+
+| Day          | Time      | Minutes Worked | Worked On                              |
+| ------------ | --------- | -------------- | -------------------------------------- |
+| Sunday 10/13 | 5:20-5:40 | 20             | Fixed rotation permissions on mobile   |
+| Sunday 10/13 | 6:00-6:30 | 30             | Trying to fix the race track selector. |
