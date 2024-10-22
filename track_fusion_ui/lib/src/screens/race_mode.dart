@@ -34,6 +34,8 @@ class _RaceState extends State<RaceMode> {
 
   bool isRecording = false;
 
+  int eventCount = 0;
+
   @override
   void initState() {
     super.initState();
@@ -129,7 +131,6 @@ class _RaceState extends State<RaceMode> {
               right: 15,
               child: IconButton(
                 onPressed: () {
-
                   if (globals.userId == '') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -144,7 +145,7 @@ class _RaceState extends State<RaceMode> {
                         content: Text('Recording Stopped'),
                       ),
                     );
-                    
+
                     saveRecording();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -158,7 +159,9 @@ class _RaceState extends State<RaceMode> {
                     isRecording = !isRecording;
                   });
                 },
-                icon: isRecording ? const Icon(Icons.stop) : const Icon(Icons.circle, color: Colors.red),
+                icon: isRecording
+                    ? const Icon(Icons.stop)
+                    : const Icon(Icons.circle, color: Colors.red),
               ),
             ),
           ),
@@ -171,15 +174,21 @@ class _RaceState extends State<RaceMode> {
           //Default Position sets around the top right corner of the screen no matter the screen size
           GForce(
               onGForceChange: (event) {
-                 if (isRecording) {
+                if (isRecording) {
+                  eventCount++;
+                  // Save the event every 8 events or about 4 times a second
+                  if (eventCount == 8) {
+                    globals.recordingEvents.add(RecordingEvent(
+                      speed: _speed,
+                      gForce: event,
+                      lat: (userPostion != null) ? userPostion!.latitude : 0.0,
+                      long:
+                          (userPostion != null) ? userPostion!.longitude : 0.0,
+                    ));
+                    eventCount = 0;
+                  }
                   // Save the event
-                  globals.recordingEvents.add(RecordingEvent(
-                    speed: _speed,
-                    gForce: event,
-                    lat: (userPostion != null) ? userPostion!.latitude : 0.0,
-                    long: (userPostion != null) ? userPostion!.longitude : 0.0,
-                  ));
-                 }
+                }
               },
               width: 150,
               height: 150,
@@ -197,16 +206,27 @@ class _RaceState extends State<RaceMode> {
       ),
     );
   }
-  
+
   void saveRecording() async {
-
-
     var postBody = {
       "userId": globals.userId,
       "raceTime": DateTime.now().toIso8601String(),
       "raceDistance": 15.5,
       "raceLocation": "new Location",
-      "recordingEvents": globals.recordingEvents
+      "recordingEvents": [
+        for (var event in globals.recordingEvents)
+          {
+            "speed": event.speed,
+            "gForce": {
+              "x": event.gForce.x,
+              "y": event.gForce.y,
+              "z": event.gForce.z,
+            },
+            "lat": event.lat,
+            "long": event.long,
+            "time": event.time.toIso8601String(),
+          }
+      ]
     };
 
     final response = await http.post(
