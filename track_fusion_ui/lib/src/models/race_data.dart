@@ -5,7 +5,7 @@ import 'package:track_fusion_ui/src/models/recording_event.dart';
 class RaceData {
   final double raceDistance;
   final String raceLocation;
-  final DateTime raceTime;
+  final int raceTime;
   List<RecordingEvent> recordingEvents = [];
 
   RaceData({

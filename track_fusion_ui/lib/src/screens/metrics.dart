@@ -7,6 +7,8 @@ import 'package:track_fusion_ui/src/models/race_data.dart';
 import 'package:track_fusion_ui/src/models/recording_event.dart';
 import 'dart:convert';
 
+import 'package:track_fusion_ui/src/widgets/g_force_graph.dart';
+
 class MetricsPage extends StatefulWidget {
   static const routeName = '/metrics';
 
@@ -17,6 +19,8 @@ class MetricsPage extends StatefulWidget {
 class _MetricsState extends State<MetricsPage> {
   List<RaceData> raceData = [];
   RaceData? selectedData;
+
+  bool isGForceChecked = false;
 
   @override
   void initState() {
@@ -30,43 +34,42 @@ class _MetricsState extends State<MetricsPage> {
       appBar: AppBar(
         title: Text('Metrics'),
       ),
-      body: Column(children: [
-        DropdownButton<RaceData>(
-          value: selectedData,
-          onChanged: (RaceData? newValue) {
-            setState(() {
-              selectedData = newValue;
-            });
-          },
-          items: raceData
-              .map<DropdownMenuItem<RaceData>>((RaceData value) {
-                return DropdownMenuItem<RaceData>(
-                  value: value,
-                  child: Text(value.raceTime.toString()),
-                );
-              })
-              .toList(),
-        ),
-        SingleChildScrollView(
-          child: AspectRatio(
-            aspectRatio: 2.0,
-            child: LineChart(
-              LineChartData(lineBarsData: [
-                LineChartBarData(
-                  spots: [
-                    if (selectedData != null)
-                      for (var i = 0;
-                          i < selectedData!.recordingEvents.length;
-                          i++)
-                        FlSpot(i.toDouble(),
-                            selectedData!.recordingEvents[i].gForce.z),
-                  ],
-                ),
-              ]),
-            ),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          DropdownButton<RaceData>(
+            value: selectedData,
+            onChanged: (RaceData? newValue) {
+              setState(() {
+                selectedData = newValue;
+              });
+            },
+            items: raceData.map<DropdownMenuItem<RaceData>>((RaceData value) {
+              return DropdownMenuItem<RaceData>(
+                value: value,
+                child: Text(value.raceTime.toString()),
+              );
+            }).toList(),
           ),
-        ),
-      ]),
+          if (selectedData != null)
+            GForceGraph(
+              gForceData: selectedData!.recordingEvents,
+              isGForceChecked: isGForceChecked,
+              xyz: 'x',
+            ),
+          if (selectedData != null)
+            GForceGraph(
+              gForceData: selectedData!.recordingEvents,
+              isGForceChecked: isGForceChecked,
+              xyz: 'y',
+            ),
+          if (selectedData != null)
+            GForceGraph(
+              gForceData: selectedData!.recordingEvents,
+              isGForceChecked: isGForceChecked,
+              xyz: 'z',
+            ),
+        ]),
+      ),
     );
   }
 
@@ -80,7 +83,7 @@ class _MetricsState extends State<MetricsPage> {
           RaceData data = RaceData(
             raceDistance: body[event]['raceDistance'],
             raceLocation: body[event]['raceLocation'],
-            raceTime: DateTime.parse(body[event]['raceTime']),
+            raceTime: body[event]['raceTime'],
           );
           for (var recordingEvent in body[event]['recordingEvents']) {
             data.recordingEvents.add(RecordingEvent(
@@ -89,10 +92,11 @@ class _MetricsState extends State<MetricsPage> {
                 recordingEvent['gForce']['x'],
                 recordingEvent['gForce']['y'],
                 recordingEvent['gForce']['z'],
-                DateTime.parse(recordingEvent['time']),
+                DateTime.fromMillisecondsSinceEpoch(recordingEvent['time']),
               ),
               lat: recordingEvent['lat'],
               long: recordingEvent['long'],
+              time: recordingEvent['time'],
             ));
           }
           raceData.add(data);

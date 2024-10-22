@@ -5,12 +5,13 @@ class RecordingEvent {
   final UserAccelerometerEvent gForce;
   final double lat;
   final double long;
-  final DateTime time = DateTime.now();
+  final int time;
 
   RecordingEvent({
     required this.speed,
     required this.gForce,
     required this.lat,
     required this.long,
+    required this.time,
   });
 }

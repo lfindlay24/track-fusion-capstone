@@ -74,3 +74,6 @@ Week 4
 | Monday 10/21  | 12:30-1:30 | 60             | Got started on adding the recording feature to race mode.                                                  |
 | Monday 10/21  | 8:30-9:00  | 30             | Fixed the api call to actually save race data. Made it so it only tracks about 4 times a second.           |
 | Tuesday 10/22 | 9:00-12:00 | 180            | Researched the graphing package I'm going to use for flutter. Got started on implementing it with my data. |
+| Tuesday 10/22 | 1:00-4:00  | 180            | Got further into implementing the graph. Now trying to make it display in time series format.              |
+| Tuesday 10/22 | 4:00-4:30  | 30             | Finally fixed the rendering issues I was having.                                                           |
+|               |            |                |                                                                                                            |

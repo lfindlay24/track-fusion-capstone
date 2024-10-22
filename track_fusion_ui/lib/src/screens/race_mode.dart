@@ -184,6 +184,7 @@ class _RaceState extends State<RaceMode> {
                       lat: (userPostion != null) ? userPostion!.latitude : 0.0,
                       long:
                           (userPostion != null) ? userPostion!.longitude : 0.0,
+                      time: DateTime.now().millisecondsSinceEpoch,
                     ));
                     eventCount = 0;
                   }
@@ -210,7 +211,7 @@ class _RaceState extends State<RaceMode> {
   void saveRecording() async {
     var postBody = {
       "userId": globals.userId,
-      "raceTime": DateTime.now().toIso8601String(),
+      "raceTime": DateTime.now().millisecondsSinceEpoch,
       "raceDistance": 15.5,
       "raceLocation": "new Location",
       "recordingEvents": [
@@ -224,7 +225,7 @@ class _RaceState extends State<RaceMode> {
             },
             "lat": event.lat,
             "long": event.long,
-            "time": event.time.toIso8601String(),
+            "time": event.time,
           }
       ]
     };
