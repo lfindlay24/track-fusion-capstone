@@ -7,6 +7,7 @@ import 'package:track_fusion_ui/src/screens/login.dart';
 import 'package:track_fusion_ui/src/screens/test.dart';
 import 'package:track_fusion_ui/src/screens/register.dart';
 import 'package:track_fusion_ui/src/screens/race_mode.dart';
+import 'package:track_fusion_ui/src/screens/metrics.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -91,6 +92,8 @@ class MyApp extends StatelessWidget {
                     return const SampleItemListView();
                   case RaceMode.routeName:
                     return RaceMode();
+                  case MetricsPage.routeName:
+                    return MetricsPage();
                   default:
                     return const SampleItemListView();
                 }
