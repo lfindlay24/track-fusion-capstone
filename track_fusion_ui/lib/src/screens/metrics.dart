@@ -6,6 +6,7 @@ import 'package:track_fusion_ui/globals.dart' as globals;
 import 'package:track_fusion_ui/src/models/race_data.dart';
 import 'package:track_fusion_ui/src/models/recording_event.dart';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 
 import 'package:track_fusion_ui/src/widgets/g_force_graph.dart';
 import 'package:track_fusion_ui/src/widgets/speed_graph.dart';
@@ -26,6 +27,13 @@ class _MetricsState extends State<MetricsPage> {
   @override
   void initState() {
     super.initState();
+
+    //Enforce landscape mode while in this page
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+
     getMetrics();
   }
 
