@@ -4,9 +4,15 @@ import 'package:intl/intl.dart';
 import 'package:track_fusion_ui/src/models/recording_event.dart';
 
 class GForceGraph extends StatefulWidget {
+  //List of G-Force data for the user to switch between
   final List<RecordingEvent> gForceData;
+  //Determines if the user wants to see the acceleration or lateral or vertical G-Force
   String xyz = 'x';
+
+  //Determines if the user wants to see the G-Force in m/s^2 or G-Force
   bool isGForceChecked;
+
+  //Title of the graph
   String title = 'Acceleration G-Force';
 
   GForceGraph({
@@ -23,6 +29,7 @@ class GForceGraph extends StatefulWidget {
 }
 
 class _GForceGraphState extends State<GForceGraph> {
+  //Used to determine the start time of the graph
   late int startEpoch;
 
   @override
@@ -32,13 +39,11 @@ class _GForceGraphState extends State<GForceGraph> {
     debugPrint('Number of G-Force Data: ${widget.gForceData.length}');
     for (var i = 0; i < widget.gForceData.length; i++) {
       if (widget.gForceData[i].time < startEpoch) {
+        //Go through the list and find the earliest time
         startEpoch = widget.gForceData[i].time;
         debugPrint('Time: ${widget.gForceData[i].time}');
       }
     }
-    debugPrint('Start Epoch: $startEpoch');
-    debugPrint('End Epoch: ${widget.gForceData.last.time}');
-    debugPrint('Duration: ${(widget.gForceData.last.time - startEpoch) / 1000}');
   }
 
   @override
@@ -78,12 +83,15 @@ class _GForceGraphState extends State<GForceGraph> {
                       if (widget.gForceData != null)
                         for (var i = 0; i < widget.gForceData!.length; i++)
                           widget.isGForceChecked
+                          //Determine where the instance should land on the graph
                               ? FlSpot(
                                   (widget.gForceData[i].time
                                                -
                                           startEpoch) /
+                                          //Convert the time to seconds
                                       1000.toDouble(),
                                   widget.xyz == 'x'
+                                  //Divides the G-Force by 9.8 to convert it to G's instead of m/s^2
                                       ? widget.gForceData[i].gForce.x / 9.8
                                       : widget.xyz == 'y'
                                           ? widget.gForceData[i].gForce.y / 9.8
@@ -119,12 +127,14 @@ class _GForceGraphState extends State<GForceGraph> {
                     ),
                   ),
                   rightTitles: const AxisTitles(
+                    //Hide the right titles
                     sideTitles: SideTitles(
                       showTitles: false,
                     )
                   )
                 ),
                 minX: 0,
+                //Find the maximum time of the graph
                 maxX: (widget.gForceData.last.time -
                         startEpoch) /
                     1000,

@@ -76,6 +76,8 @@ class _MetricsState extends State<MetricsPage> {
     );
   }
 
+  // Get metrics from the databse and converts it to a list of RaceData objects
+  // Will not set the state if it doesn't find any data
   void getMetrics() {
     http
         .get(Uri.parse("${globals.apiBasePath}/raceData/${globals.userId}"))
