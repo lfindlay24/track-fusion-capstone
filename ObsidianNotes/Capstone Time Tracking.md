@@ -66,14 +66,14 @@ Week 3
 |                 |             |                |                                                                                                       |
 Week 4
 
-| Day           | Time       | Minutes Worked | Worked On                                                                                                  |
-| ------------- | ---------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
-| Sunday 10/13  | 5:20-5:40  | 20             | Fixed rotation permissions on mobile                                                                       |
-| Sunday 10/13  | 6:00-6:30  | 30             | Trying to fix the race track selector.                                                                     |
-| Monday 10/21  | 8:00-10:30 | 150            | Creating new API endpoints for race mode metric tracking.                                                  |
-| Monday 10/21  | 12:30-1:30 | 60             | Got started on adding the recording feature to race mode.                                                  |
-| Monday 10/21  | 8:30-9:00  | 30             | Fixed the api call to actually save race data. Made it so it only tracks about 4 times a second.           |
-| Tuesday 10/22 | 9:00-12:00 | 180            | Researched the graphing package I'm going to use for flutter. Got started on implementing it with my data. |
-| Tuesday 10/22 | 1:00-4:00  | 180            | Got further into implementing the graph. Now trying to make it display in time series format.              |
-| Tuesday 10/22 | 4:00-4:30  | 30             | Finally fixed the rendering issues I was having.                                                           |
-|               |            |                |                                                                                                            |
+| Day             | Time       | Minutes Worked | Worked On                                                                                                  |
+| --------------- | ---------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| Sunday 10/13    | 5:20-5:40  | 20             | Fixed rotation permissions on mobile                                                                       |
+| Sunday 10/13    | 6:00-6:30  | 30             | Trying to fix the race track selector.                                                                     |
+| Monday 10/21    | 8:00-10:30 | 150            | Creating new API endpoints for race mode metric tracking.                                                  |
+| Monday 10/21    | 12:30-1:30 | 60             | Got started on adding the recording feature to race mode.                                                  |
+| Monday 10/21    | 8:30-9:00  | 30             | Fixed the api call to actually save race data. Made it so it only tracks about 4 times a second.           |
+| Tuesday 10/22   | 9:00-12:00 | 180            | Researched the graphing package I'm going to use for flutter. Got started on implementing it with my data. |
+| Tuesday 10/22   | 1:00-4:00  | 180            | Got further into implementing the graph. Now trying to make it display in time series format.              |
+| Tuesday 10/22   | 4:00-4:30  | 30             | Finally fixed the rendering issues I was having.                                                           |
+| Wednesday 10/23 | 8:00-10:45 | 165            | Made the speed graph widget and laid the page out for better viewing.                                      |

@@ -10,14 +10,14 @@ import 'dart:convert';
 import 'package:track_fusion_ui/src/widgets/g_force_graph.dart';
 import 'package:track_fusion_ui/src/widgets/speed_graph.dart';
 
-class MetricsPage extends StatefulWidget {
-  static const routeName = '/metrics';
+class InteractiveMetrics extends StatefulWidget {
+  static const routeName = '/interactiveMetrics';
 
   @override
-  State<StatefulWidget> createState() => _MetricsState();
+  State<StatefulWidget> createState() => _InteractiveMetricsState();
 }
 
-class _MetricsState extends State<MetricsPage> {
+class _InteractiveMetricsState extends State<InteractiveMetrics> {
   List<RaceData> raceData = [];
   RaceData? selectedData;
 
@@ -51,49 +51,7 @@ class _MetricsState extends State<MetricsPage> {
               );
             }).toList(),
           ),
-          if (selectedData != null)
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GForceGraph(
-                          gForceData: selectedData!.recordingEvents,
-                          isGForceChecked: isGForceChecked,
-                          title: 'G-Force',
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: GForceGraph(
-                        gForceData: selectedData!.recordingEvents,
-                        isGForceChecked: isGForceChecked,
-                        title: 'G-Force',
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GForceGraph(
-                        gForceData: selectedData!.recordingEvents,
-                        isGForceChecked: isGForceChecked,
-                        title: 'G-Force',
-                      ),
-                    ),
-                    Expanded(
-                      child: SpeedGraph(
-                        speedData: selectedData!.recordingEvents,
-                        title: 'Speed',
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            )
+          //GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), itemBuilder: itemBuilder)
         ]),
       ),
     );

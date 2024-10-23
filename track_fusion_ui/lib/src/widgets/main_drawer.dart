@@ -73,6 +73,15 @@ class MainDrawer extends StatelessWidget implements PreferredSizeWidget {
               }
             },
           ),
+          ListTile(
+            title: Text('Interactive Race Metrics'),
+            onTap: () {
+              Navigator.pop(context);
+              if (ModalRoute.of(context)!.settings.name != '/interactiveMetrics') {
+                Navigator.pushNamed(context, '/interactiveMetrics');
+              }
+            },
+          ),
         ],
       ),
     );
