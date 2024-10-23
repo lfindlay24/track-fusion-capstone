@@ -7,11 +7,13 @@ class GForceGraph extends StatefulWidget {
   final List<RecordingEvent> gForceData;
   String xyz = 'x';
   bool isGForceChecked;
+  String title = 'Acceleration G-Force';
 
   GForceGraph({
     required this.gForceData,
     required this.isGForceChecked,
     required String xyz,
+    required this.title,
   })  : assert(xyz == 'x' || xyz == 'y' || xyz == 'z',
             'xyz must be either x, y, or z'),
         this.xyz = xyz;
@@ -46,7 +48,7 @@ class _GForceGraphState extends State<GForceGraph> {
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            const Text('Acceleration G-Force',
+            Text(widget.title,
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Row(
               children: [

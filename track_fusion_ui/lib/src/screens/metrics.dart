@@ -55,18 +55,21 @@ class _MetricsState extends State<MetricsPage> {
               gForceData: selectedData!.recordingEvents,
               isGForceChecked: isGForceChecked,
               xyz: 'x',
+              title: 'Acceleration / Braking G-Force',
             ),
           if (selectedData != null)
             GForceGraph(
               gForceData: selectedData!.recordingEvents,
               isGForceChecked: isGForceChecked,
               xyz: 'y',
+              title: 'Lateral G-Force',
             ),
           if (selectedData != null)
             GForceGraph(
               gForceData: selectedData!.recordingEvents,
               isGForceChecked: isGForceChecked,
               xyz: 'z',
+              title: 'Vertical G-Force',
             ),
         ]),
       ),
