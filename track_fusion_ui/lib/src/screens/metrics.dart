@@ -23,6 +23,7 @@ class _MetricsState extends State<MetricsPage> {
   RaceData? selectedData;
 
   bool isGForceChecked = false;
+  bool isHovering = false;
 
   @override
   void initState() {
@@ -44,6 +45,9 @@ class _MetricsState extends State<MetricsPage> {
         title: Text('Metrics'),
       ),
       body: SingleChildScrollView(
+        physics: isHovering
+            ? const NeverScrollableScrollPhysics()
+            : const AlwaysScrollableScrollPhysics(),
         child: Column(children: [
           DropdownButton<RaceData>(
             value: selectedData,
@@ -67,6 +71,37 @@ class _MetricsState extends State<MetricsPage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
+                        child: MouseRegion(
+                          onEnter: (event) {
+                            setState(() {
+                              isHovering = true;
+                            });
+                          },
+                          onExit: (event) {
+                            setState(() {
+                              isHovering = false;
+                            });
+                          },
+                          child: GForceGraph(
+                            gForceData: selectedData!.recordingEvents,
+                            isGForceChecked: isGForceChecked,
+                            title: 'G-Force',
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: MouseRegion(
+                        onEnter: (event) {
+                          setState(() {
+                            isHovering = true;
+                          });
+                        },
+                        onExit: (event) {
+                          setState(() {
+                            isHovering = false;
+                          });
+                        },
                         child: GForceGraph(
                           gForceData: selectedData!.recordingEvents,
                           isGForceChecked: isGForceChecked,
@@ -74,22 +109,27 @@ class _MetricsState extends State<MetricsPage> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: GForceGraph(
-                        gForceData: selectedData!.recordingEvents,
-                        isGForceChecked: isGForceChecked,
-                        title: 'G-Force',
-                      ),
-                    ),
                   ],
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: GForceGraph(
-                        gForceData: selectedData!.recordingEvents,
-                        isGForceChecked: isGForceChecked,
-                        title: 'G-Force',
+                      child: MouseRegion(
+                        onEnter: (event) {
+                          setState(() {
+                            isHovering = true;
+                          });
+                        },
+                        onExit: (event) {
+                          setState(() {
+                            isHovering = false;
+                          });
+                        },
+                        child: GForceGraph(
+                          gForceData: selectedData!.recordingEvents,
+                          isGForceChecked: isGForceChecked,
+                          title: 'G-Force',
+                        ),
                       ),
                     ),
                     Expanded(

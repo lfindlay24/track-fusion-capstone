@@ -132,7 +132,7 @@ class _GForceGraphState extends State<GForceGraph> {
                   controller: _scrollController,
                   child: SizedBox(
                     width: (widget.gForceData.length / 2).toDouble() *
-                        100, // Adjust width to allow scrolling
+                        50, // Adjust width to allow scrolling
                     child: LineChart(
                       LineChartData(
                         lineBarsData: [

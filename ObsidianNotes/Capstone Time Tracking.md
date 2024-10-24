@@ -79,3 +79,4 @@ Week 4
 | Wednesday 10/23 | 8:00-10:45 | 165            | Made the speed graph widget and laid the page out for better viewing.                                      |
 | Wednesday 10/23 | 1:00-1:30  | 30             | Trying to fix the rendering of the graph so you can scroll through it.                                     |
 | Wednesday 10/23 | 3:45-4:15  | 30             | Users can scroll through the graphs using the mouse.                                                       |
+| Thursday 10/24  | 9:00-9:30  | 30             | Fixed the scrolling so it wont scroll both vertically and horizontally at the same time.                   |
